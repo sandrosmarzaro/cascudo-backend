@@ -1,0 +1,33 @@
+{
+  "name": "cascudo-backend",
+  "version": "0.0.1",
+  "description": "REST API that provides data to Cascudo Web App (front-end)",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandrosmarzaro/cascudo-backend.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "nodejs",
+    "express",
+    "sequelize",
+    "sqlite",
+    "postgresql"
+  ],
+  "author": "Gabriel Cardoso, Sandro Smarzaro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sandrosmarzaro/cascudo-backend/issues"
+  },
+  "homepage": "https://github.com/sandrosmarzaro/cascudo-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sequelize": "^6.30.0",
+    "sqlite3": "^5.1.6"
+  }
+}
