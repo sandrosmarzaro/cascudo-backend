@@ -1,31 +1,107 @@
 import { Sequelize } from "sequelize";
 import { dbConfig } from "./db.js"
 
+import { Cliente } from "../models/Cliente.js";
+import { Funcionario } from "../models/Funcionario.js";
 import { Fornecedor } from "../models/Fornecedor.js";
 import { Marca } from "../models/Marca.js";
 import { Cerveja } from "../models/Cerveja.js";
 import { ItemVenda } from "../models/ItemVenda.js";
 import { Devolucao } from "../models/Devolucao.js";
+import { ItemEntrada } from "../models/ItemEntrada.js";
 import { Venda } from "../models/Venda.js";
+import { Entrada } from "../models/Entrada.js";
 
 const sequelize = new Sequelize(dbConfig);
 
+Cliente.init(sequelize);
+Funcionario.init(sequelize);
 Fornecedor.init(sequelize);
 Marca.init(sequelize);
 Cerveja.init(sequelize);
 Venda.init(sequelize);
 ItemVenda.init(sequelize);
 Devolucao.init(sequelize);
+Entrada.init(sequelize);
+ItemEntrada.init(sequelize);
 
+Cliente.associate(sequelize.models);
+Funcionario.associate(sequelize.models);
 Fornecedor.associate(sequelize.models);
 Marca.associate(sequelize.models);
 Cerveja.associate(sequelize.models);
 Venda.associate(sequelize.models);
 ItemVenda.associate(sequelize.models);
 Devolucao.associate(sequelize.models);
+Entrada.associate(sequelize.models);
+ItemEntrada.associate(sequelize.models);
 
 async function populateDatase() {
     await sequelize.sync({ force: true });
+
+    const funcionarios = [];
+    funcionarios[0] = await Funcionario.create({
+        nome: 'José da Silva',
+        codigo: '001',
+        dataNascimento: '1990-01-01',
+        senha: 'senha123',
+        foto: null,
+        gerente: true
+    });
+    funcionarios[1] = await Funcionario.create({
+        nome: 'Mariana Souza',
+        codigo: '002',
+        dataNascimento: '1995-05-05',
+        senha: 'senha456',
+        foto: null,
+        gerente: false
+    });
+    funcionarios[2] = await Funcionario.create({
+        nome: 'Luiz Oliveira',
+        codigo: '003',
+        dataNascimento: '2000-12-31',
+        senha: 'senha789',
+        foto: null,
+        gerente: false
+    });
+    funcionarios[3] = await Funcionario.create({
+        nome: 'Julia Santos',
+        codigo: '004',
+        dataNascimento: '1985-10-15',
+        senha: 'senhaabc',
+        foto: null,
+        gerente: false
+    });
+
+    const clientes = [];
+    clientes[0] = await Cliente.create({
+        nome: 'João Silva',
+        cpf: '12345678901',
+        dataNascimento: '1990-01-01',
+        email: 'joao.silva@example.com',
+        foto: null
+    });
+    clientes[1] = await Cliente.create({
+        nome: 'Maria Santos',
+        cpf: '23456789012',
+        dataNascimento: '1995-05-05',
+        email: 'maria.santos@example.com',
+        foto: null
+    });
+    clientes[2] = await Cliente.create({
+        nome: 'Pedro Oliveira',
+        cpf: '34567890123',
+        dataNascimento: '2000-12-31',
+        email: 'pedro.oliveira@example.com',
+        foto: null
+    });
+    clientes[3] = await Cliente.create({
+        nome: 'Ana Paula Souza',
+        cpf: '45678901234',
+        dataNascimento: '1985-10-15',
+        email: 'ana.paula.souza@example.com',
+        foto: null
+    });
 
     const fornedecores = [];
     fornedecores[0] = await Fornecedor.create({
@@ -125,22 +201,48 @@ async function populateDatase() {
     vendas[0] = await Venda.create({
         dataHora: "2020-01-01T00:00:00",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00
+        totalComCasco: 0.00,
+        clienteId: clientes[0].id,
+        funcionarioId: funcionarios[0].id
     });
     vendas[1] = await Venda.create({
         dataHora: "2021-01-01T01:01:01",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00
+        totalComCasco: 0.00,
+        clienteId: clientes[1].id,
+        funcionarioId: funcionarios[1].id
     });
     vendas[2] = await Venda.create({
         dataHora: "2022-01-01T02:02:02",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00
+        totalComCasco: 0.00,
+        clienteId: clientes[2].id,
+        funcionarioId: clientes[2].id
     });
     vendas[3] = await Venda.create({
         dataHora: "2023-01-01T03:03:03",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00
+        totalComCasco: 0.00,
+        clienteId: clientes[3].id,
+        funcionarioId: clientes[3].id
+    });
+
+    const entradas = [];
+    entradas[0] = await Entrada.create({
+        dataHora: "2020-01-01T00:00:00",
+        funcionarioId: funcionarios[0].id
+    });
+    entradas[1] = await Entrada.create({
+        dataHora: "2021-01-01T01:01:01",
+        funcionarioId: funcionarios[1].id
+    });
+    entradas[2] = await Entrada.create({
+        dataHora: "2022-01-01T02:02:02",
+        funcionarioId: funcionarios[2].id
+    });
+    entradas[3] = await Entrada.create({
+        dataHora: "2023-01-01T03:03:03",
+        funcionarioId: funcionarios[3].id
     });
 
     const itensVenda = [];
@@ -171,6 +273,36 @@ async function populateDatase() {
         valorCasco: 0.75,
         cervejaId: cervejas[3].id,
         vendaId: vendas[3].id
+    });
+
+    const itensEntrada = [];
+    itensEntrada[0] = await ItemEntrada.create({
+        quantidade: 1,
+        valorCerveja: 7.50,
+        valorCasco: 2.00,
+        cervejaId: cervejas[0].id,
+        entradaId: entradas[0].id
+    });
+    itensEntrada[1] = await ItemEntrada.create({
+        quantidade: 2,
+        valorCerveja: 10.90,
+        valorCasco: 5.00,
+        cervejaId: cervejas[1].id,
+        entradaId: entradas[1].id
+    });
+    itensEntrada[2] = await ItemEntrada.create({
+        quantidade: 3,
+        valorCerveja: 8.25,
+        valorCasco: 1.50,
+        cervejaId: cervejas[2].id,
+        entradaId: entradas[2].id
+    });
+    itensEntrada[3] = await ItemEntrada.create({
+        quantidade: 4,
+        valorCerveja: 2.50,
+        valorCasco: 0.75,
+        cervejaId: cervejas[3].id,
+        entradaId: entradas[3].id
     });
 
     const devolucoes = [];
