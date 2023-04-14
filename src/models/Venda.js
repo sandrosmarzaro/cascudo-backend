@@ -1,3 +1,4 @@
+//Responsável: Sandro.
 import { Model, DataTypes } from 'sequelize';
 
 class Venda extends Model {
@@ -76,6 +77,36 @@ class Venda extends Model {
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
+        });
+        this.belongsTo(models.cliente, {
+            as: 'cliente',
+            foreignKey: {
+                name: 'clienteId',
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: 'O campo é obrigatório'
+                    },
+                    notEmpty: {
+                        msg: 'O campo não pode ser vazio'
+                    }
+                }
+            }
+        });
+        this.belongsTo(models.funcionario, {
+            as: 'funcionario',
+            foreignKey: {
+                name: 'funcionarioId',
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: 'O campo é obrigatório'
+                    },
+                    notEmpty: {
+                        msg: 'O campo não pode ser vazio'
+                    }
+                }
+            }
         });
     }
 }
