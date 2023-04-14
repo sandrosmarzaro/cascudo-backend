@@ -1,4 +1,4 @@
-import { Sequelize, TIME } from "sequelize";
+import { Sequelize } from "sequelize";
 import { dbConfig } from "./db.js"
 
 import { Fornecedor } from "../models/Fornecedor.js";

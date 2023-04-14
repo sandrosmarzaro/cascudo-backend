@@ -1,4 +1,4 @@
-import {Model, DataTypes} from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import paises from '../utils/paises.js';
 
 class Marca extends Model {

@@ -76,7 +76,7 @@ class Venda extends Model {
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
-        })
+        });
     }
 }
 
