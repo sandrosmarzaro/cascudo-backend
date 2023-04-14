@@ -39,14 +39,9 @@ class Cerveja extends Model {
                         args: [0],
                         msg: 'A quantidade de vazio deve ser maior ou igual a 0'
                     },
-                    qtdMaxVazio() {
+                    qtdMax() {
                         if (this.qtdVazio > this.qtdMaxEstoque) {
                             throw new Error('A quantidade de vazio não pode ser maior que a quantidade máxima de estoque');
-                        }
-                    },
-                    qtdMaxCheio() {
-                        if (this.qtdCheio > this.qtdMaxEstoque) {
-                            throw new Error('A quantidade de cheio não pode ser maior que a quantidade máxima de estoque');
                         }
                     },
                     qtdSomaMax() {
