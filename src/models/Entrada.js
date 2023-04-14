@@ -1,3 +1,4 @@
+//Responsável: Gabriel.
 import { Model, DataTypes } from 'sequelize';
 
 class Entrada extends Model {
@@ -33,6 +34,21 @@ class Entrada extends Model {
             },
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
+        });
+        this.belongsTo(models.funcionario, {
+            as: 'funcionario',
+            foreignKey: {
+                name: 'funcionarioId',
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: 'O campo é obrigatório'
+                    },
+                    notEmpty: {
+                        msg: 'O campo não pode ser vazio'
+                    }
+                }
+            }
         });
     }
 }
