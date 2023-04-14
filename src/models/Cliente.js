@@ -1,7 +1,8 @@
+//Responsável: Gabriel Cardoso.
 import { Model, DataTypes } from 'sequelize';
 
 class Cliente extends Model {
-    static init() {
+    static init(sequelize) {
         super.init({
             nome: {
                 type: DataTypes.STRING,
