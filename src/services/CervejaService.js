@@ -40,7 +40,7 @@ class CervejaService {
     static async update(req) {
         const { id } = req.params;
         const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
-        return await Cerveja.update(cerveja);
+        return await cerveja.update(req.body);
     }
 
     static async destroy(req) {
