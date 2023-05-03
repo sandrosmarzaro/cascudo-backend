@@ -18,13 +18,24 @@ class MarcaService {
     static async update(req) {
         const { id } = req.params;
         const marca = await Marca.findByPk(id, { include: { all: true, nested: true } });
+        if (!marca) {
+            throw "Marca não encontrada";
+        }
         return await marca.update(req.body);
     }
 
     static async destroy(req) {
         const { id } = req.params;
         const marca = await Marca.findByPk(id, { include: { all: true, nested: true } });
-        return await marca.destroy();
+        if (!marca) {
+            throw "Marca não encontrada";
+        }
+        try {
+            return await marca.destroy();
+        }
+        catch (err) {
+            throw "Não foi possível deletar a marca";
+        }
     }
 }
 

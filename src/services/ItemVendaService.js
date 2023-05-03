@@ -18,13 +18,24 @@ class ItemVendaService {
     static async update(req) {
         const { id } = req.params;
         const itemvenda = await ItemVenda.findByPk(id, { include: { all: true, nested: true } });
+        if (!itemvenda) {
+            throw "ItemVenda não encontrado";
+        }
         return await itemvenda.update(req.body);
     }
 
     static async destroy(req) {
         const { id } = req.params;
         const itemvenda = await ItemVenda.findByPk(id, { include: { all: true, nested: true } });
-        return await itemvenda.destroy();
+        if (!itemvenda) {
+            throw "ItemVenda não encontrado";
+        }
+        try {
+            return await itemvenda.destroy();
+        }
+        catch (err) {
+            throw "Não foi possível deletar o itemvenda";
+        }
     }
 }
 

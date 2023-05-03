@@ -40,13 +40,24 @@ class CervejaService {
     static async update(req) {
         const { id } = req.params;
         const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
+        if (!cerveja) {
+            throw "Cerveja não encontrada";
+        }
         return await cerveja.update(req.body);
     }
 
     static async destroy(req) {
         const { id } = req.params;
         const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
-        return await cerveja.destroy();
+        if (!cerveja) {
+            throw "Cerveja não encontrada";
+        }
+        try {
+            return await cerveja.destroy();
+        }
+        catch (err) {
+            throw "Não foi possível deletar a cerveja";
+        }
     }
 }
 

@@ -18,13 +18,24 @@ class DevolucaoService {
     static async update(req) {
         const { id } = req.params;
         const devolucao = await Devolucao.findByPk(id, { include: { all: true, nested: true } });
+        if (!devolucao) {
+            throw "Devolucao não encontrada";
+        }
         return await devolucao.update(req.body);
     }
 
     static async destroy(req) {
         const { id } = req.params;
         const devolucao = await Devolucao.findByPk(id, { include: { all: true, nested: true } });
-        return await devolucao.destroy();
+        if (!devolucao) {
+            throw "Devolucao não encontrada";
+        }
+        try {
+            return await devolucao.destroy();
+        }
+        catch (err) {
+            throw "Não foi possível deletar a devolucao";
+        }
     }
 }
 
