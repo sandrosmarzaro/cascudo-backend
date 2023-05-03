@@ -19,8 +19,14 @@ class FornecedorController {
             .catch(next);
     }
 
-    static async update(req, res, next) {
-        FornecedorService.update(req)
+    static async updateParcial(req, res, next) {
+        FornecedorService.updateParcial(req)
+            .then((fornecedor) => res.json(fornecedor))
+            .catch(next);
+    }
+
+    static async updateTotal(req, res, next) {
+        FornecedorService.updateTotal(req)
             .then((fornecedor) => res.json(fornecedor))
             .catch(next);
     }

@@ -15,13 +15,22 @@ class FornecedorService {
         return await Fornecedor.create({ nome, logo, endereco, horaEntrega, diaEntrega });
     }
 
-    static async update(req) {
+    static async updateParcial(req) {
         const { id } = req.params;
         const fornecedor = await Fornecedor.findByPk(id, { include: { all: true, nested: true } });
         if (!fornecedor) {
             throw "Fornecedor não encontrado";
         }
         return await fornecedor.update(req.body);
+    }
+
+    static async updateTotal(req) {
+        const { id } = req.params;
+        const fornecedor = await Fornecedor.findByPk(id, { include: { all: true, nested: true } });
+        if (!fornecedor) {
+            throw "Fornecedor não encontrado";
+        }
+        return await fornecedor.save(req.body);
     }
 
     static async destroy(req) {

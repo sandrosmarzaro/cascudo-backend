@@ -19,8 +19,14 @@ class ItemVendaController {
             .catch(next);
     }
 
-    static async update(req, res, next) {
-        ItemVendaService.update(req)
+    static async updateParcial(req, res, next) {
+        ItemVendaService.updateParcial(req)
+            .then((itemvenda) => res.json(itemvenda))
+            .catch(next);
+    }
+
+    static async updateTotal(req, res, next) {
+        ItemVendaService.updateTotal(req)
             .then((itemvenda) => res.json(itemvenda))
             .catch(next);
     }

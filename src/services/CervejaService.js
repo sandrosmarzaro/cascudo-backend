@@ -37,13 +37,22 @@ class CervejaService {
         });
     }
 
-    static async update(req) {
+    static async updateParcial(req) {
         const { id } = req.params;
         const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
         if (!cerveja) {
             throw "Cerveja não encontrada";
         }
         return await cerveja.update(req.body);
+    }
+
+    static async updateTotal(req) {
+        const { id } = req.params;
+        const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
+        if (!cerveja) {
+            throw "Cerveja não encontrada";
+        }
+        return await cerveja.save(req.body);
     }
 
     static async destroy(req) {

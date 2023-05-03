@@ -15,13 +15,22 @@ class MarcaService {
         return await Marca.create({ nome, logo, origem, fornecedorId });
     }
 
-    static async update(req) {
+    static async updateParcial(req) {
         const { id } = req.params;
         const marca = await Marca.findByPk(id, { include: { all: true, nested: true } });
         if (!marca) {
             throw "Marca não encontrada";
         }
         return await marca.update(req.body);
+    }
+
+    static async updateTotal(req) {
+        const { id } = req.params;
+        const marca = await Marca.findByPk(id, { include: { all: true, nested: true } });
+        if (!marca) {
+            throw "Marca não encontrada";
+        }
+        return await marca.save(req.body);
     }
 
     static async destroy(req) {

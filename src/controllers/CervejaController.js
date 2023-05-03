@@ -19,8 +19,14 @@ class CervejaController {
             .catch(next);
     }
 
-    static async update(req, res, next) {
-        CervejaService.update(req)
+    static async updateParcial(req, res, next) {
+        CervejaService.updateParcial(req)
+            .then((cerveja) => res.json(cerveja))
+            .catch(next);
+    }
+
+    static async updateTotal(req, res, next) {
+        CervejaService.updateTotal(req)
             .then((cerveja) => res.json(cerveja))
             .catch(next);
     }

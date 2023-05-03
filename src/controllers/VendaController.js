@@ -19,8 +19,14 @@ class VendaController {
             .catch(next);
     }
 
-    static async update(req, res, next) {
-        VendaService.update(req)
+    static async updateParcial(req, res, next) {
+        VendaService.updateParcial(req)
+            .then((venda) => res.json(venda))
+            .catch(next);
+    }
+
+    static async updateTotal(req, res, next) {
+        VendaService.updateTotal(req)
             .then((venda) => res.json(venda))
             .catch(next);
     }

@@ -19,8 +19,14 @@ class MarcaController {
             .catch(next);
     }
 
-    static async update(req, res, next) {
-        MarcaService.update(req)
+    static async updateParcial(req, res, next) {
+        MarcaService.updateParcial(req)
+            .then((marca) => res.json(marca))
+            .catch(next);
+    }
+
+    static async updateTotal(req, res, next) {
+        MarcaService.updateTotal(req)
             .then((marca) => res.json(marca))
             .catch(next);
     }

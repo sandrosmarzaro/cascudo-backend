@@ -19,8 +19,14 @@ class DevolucaoController {
             .catch(next);
     }
 
-    static async update(req, res, next) {
-        DevolucaoService.update(req)
+    static async updateParcial(req, res, next) {
+        DevolucaoService.updateParcial(req)
+            .then((devolucao) => res.json(devolucao))
+            .catch(next);
+    }
+
+    static async updateTotal(req, res, next) {
+        DevolucaoService.updateTotal(req)
             .then((devolucao) => res.json(devolucao))
             .catch(next);
     }

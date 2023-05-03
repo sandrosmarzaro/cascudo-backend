@@ -15,13 +15,22 @@ class ItemVendaService {
         return await ItemVenda.create({ quantidade, valorCerveja, valorCasco, vendaId, cervejaId });
     }
 
-    static async update(req) {
+    static async updateParcial(req) {
         const { id } = req.params;
         const itemvenda = await ItemVenda.findByPk(id, { include: { all: true, nested: true } });
         if (!itemvenda) {
             throw "ItemVenda não encontrado";
         }
         return await itemvenda.update(req.body);
+    }
+
+    static async updateTotal(req) {
+        const { id } = req.params;
+        const itemvenda = await ItemVenda.findByPk(id, { include: { all: true, nested: true } });
+        if (!itemvenda) {
+            throw "ItemVenda não encontrado";
+        }
+        return await itemvenda.save(req.body);
     }
 
     static async destroy(req) {

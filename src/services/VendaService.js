@@ -27,13 +27,22 @@ class VendaService {
         });
     }
 
-    static async update(req) {
+    static async updateParcial(req) {
         const { id } = req.params;
         const venda = await Venda.findByPk(id, { include: { all: true, nested: true } });
         if (!venda) {
             throw "Venda não encontrada";
         }
         return await venda.update(req.body);
+    }
+
+    static async updateTotal(req) {
+        const { id } = req.params;
+        const venda = await Venda.findByPk(id, { include: { all: true, nested: true } });
+        if (!venda) {
+            throw "Venda não encontrada";
+        }
+        return await venda.save(req.body);
     }
 
     static async destroy(req) {
