@@ -1,0 +1,108 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Entrada",
+    "dateExported": "2023-05-05T21:41:04.266Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c19d81bd-c899-40ed-8f44-d6a9c01f52ee",
+            "colId": "00c3987b-a5fd-47fd-99b2-0e1e6134ea03",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas",
+            "url": "http://localhost:3000/api/v1/entradas",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-05-05T21:15:55.481Z",
+            "modified": "2023-05-05T21:15:55.481Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "82c9cc10-5967-4ffe-845d-53cd55981e42",
+            "colId": "00c3987b-a5fd-47fd-99b2-0e1e6134ea03",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/1",
+            "url": "http://localhost:3000/api/v1/entradas/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-05T21:16:01.224Z",
+            "modified": "2023-05-05T21:16:01.224Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e55d00a0-d41a-4fdb-8039-9277718713d4",
+            "colId": "00c3987b-a5fd-47fd-99b2-0e1e6134ea03",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/3",
+            "url": "http://localhost:3000/api/v1/entradas/3",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2023-05-05T21:34:19.544Z",
+            "modified": "2023-05-05T21:34:19.544Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"dataHora\": \"2019-01-01T03:00:00.000Z\",\n\"itensEntrada\": \"\",\n\"funcionarioId\": \"3\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b863cf36-98c1-46d4-a9ca-915da383dbb1",
+            "colId": "00c3987b-a5fd-47fd-99b2-0e1e6134ea03",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/3",
+            "url": "http://localhost:3000/api/v1/entradas/3",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2023-05-05T21:34:49.672Z",
+            "modified": "2023-05-05T21:34:49.672Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"dataHora\": \"2023-01-01T03:00:00.000Z\",\n\"itensEntrada\": \"\",\n\"funcionarioId\": \"3\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "59086bf1-d386-47a9-ac2c-11980123eeef",
+            "colId": "00c3987b-a5fd-47fd-99b2-0e1e6134ea03",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/3",
+            "url": "http://localhost:3000/api/v1/entradas/3",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-05-05T21:36:18.816Z",
+            "modified": "2023-05-05T21:36:18.816Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b048f9e0-47e3-4fd0-b408-7dd99a75bede",
+            "colId": "00c3987b-a5fd-47fd-99b2-0e1e6134ea03",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/",
+            "url": "http://localhost:3000/api/v1/entradas/",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-05-05T21:39:37.680Z",
+            "modified": "2023-05-05T21:39:37.680Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"dataHora\": \"2021-01-01T04:01:01.000Z\",\n  \"createdAt\": \"2023-05-05T20:52:14.171Z\",\n  \"updatedAt\": \"2023-05-05T20:52:14.171Z\",\n  \"funcionarioId\": \"4\",\n  \"itensEntrada\": [\n    {\n      \"id\": \"5\",\n      \"quantidade\": \"2\",\n      \"valorCerveja\": \"10.9\",\n      \"valorCasco\": \"5\",\n      \"createdAt\": \"2023-05-05T20:52:14.378Z\",\n      \"updatedAt\": \"2023-05-05T20:52:14.378Z\",\n      \"entradaId\": \"2\",\n      \"cervejaId\": \"2\",\n      \"cerveja\": {\n        \"id\": \"2\",\n        \"qtdMaxEstoque\": \"240\",\n        \"qtdVazio\": \"120\",\n        \"qtdCheio\": \"120\",\n        \"qtdAlcool\": \"5\",\n        \"precoCerveja\": \"10.9\",\n        \"precoCasco\": \"5\",\n        \"litragem\": \"600\",\n        \"nome\": \"Heineken Garrafa\",\n        \"imagem\": \"null\",\n        \"createdAt\": \"2023-05-05T20:52:13.957Z\",\n        \"updatedAt\": \"2023-05-05T20:52:13.957Z\",\n        \"marcaId\": \"2\",\n        \"marca\": {\n          \"id\": \"2\",\n          \"nome\": \"Heineken\",\n          \"logo\": \"null\",\n          \"origem\": \"Holanda\",\n          \"createdAt\": \"2023-05-05T20:52:13.857Z\",\n          \"updatedAt\": \"2023-05-05T20:52:13.857Z\",\n          \"fornecedorId\": \"2\",\n          \"fornecedor\": {\n            \"id\": \"2\",\n            \"nome\": \"Lippaus\",\n            \"logo\": \"null\",\n            \"endereco\": \"Rua das Cervejas, 456\",\n            \"horaEntrega\": \"12:30:45\",\n            \"diaEntrega\": \"quarta\",\n            \"createdAt\": \"2023-05-05T20:52:13.746Z\",\n            \"updatedAt\": \"2023-05-05T20:52:13.746Z\"\n          }\n        }\n      }\n    }\n  ],\n  \"funcionario\": {\n    \"id\": \"2\",\n    \"nome\": \"Mariana Souza\",\n    \"codigo\": \"002\",\n    \"dataNascimento\": \"1995-05-05\",\n    \"senha\": \"senha456\",\n    \"foto\": \"null\",\n    \"gerente\": \"false\",\n    \"createdAt\": \"2023-05-05T20:52:13.484Z\",\n    \"updatedAt\": \"2023-05-05T20:52:13.484Z\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

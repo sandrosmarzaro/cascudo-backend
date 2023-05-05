@@ -1,0 +1,108 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Cliente",
+    "dateExported": "2023-05-05T21:40:59.759Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "b73724ab-4e38-4170-a63f-2c8f1bacd331",
+            "colId": "cd8f2f6b-80aa-4c67-ba73-032854bebbf0",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/clientes/",
+            "url": "http://localhost:3000/api/v1/clientes/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-05-05T21:00:08.089Z",
+            "modified": "2023-05-05T21:00:08.089Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6b33bf2c-1e39-42bd-b7a9-44f85c80914e",
+            "colId": "cd8f2f6b-80aa-4c67-ba73-032854bebbf0",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/clientes/1",
+            "url": "http://localhost:3000/api/v1/clientes/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-05T21:00:12.681Z",
+            "modified": "2023-05-05T21:00:12.681Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7b3dac74-37b2-4f45-bf9e-9a0aa5015e2b",
+            "colId": "cd8f2f6b-80aa-4c67-ba73-032854bebbf0",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/clientes",
+            "url": "http://localhost:3000/api/v1/clientes",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-05-05T21:00:17.177Z",
+            "modified": "2023-05-05T21:00:17.177Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"nome\": \"Fulano de Tal\",\n    \"cpf\": \"12345678701\",\n    \"dataNascimento\": \"1990-01-01\",\n    \"email\": \"fulano@example.com\",\n    \"foto\": \"null\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1bebd5a1-e9b4-4f63-a5b3-6732757527a8",
+            "colId": "cd8f2f6b-80aa-4c67-ba73-032854bebbf0",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/clientes/5",
+            "url": "http://localhost:3000/api/v1/clientes/5",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-05-05T21:00:21.713Z",
+            "modified": "2023-05-05T21:00:21.713Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"nome\": \"Ciclano de Tal\",\n    \"cpf\": \"12345678601\",\n    \"dataNascimento\": \"1990-02-02\",\n    \"email\": \"ciclano@example.com\",\n    \"foto\": \"null\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a42c30f5-edf7-4507-97ef-ea588966f860",
+            "colId": "cd8f2f6b-80aa-4c67-ba73-032854bebbf0",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/clientes/5",
+            "url": "http://localhost:3000/api/v1/clientes/5",
+            "method": "PATCH",
+            "sortNum": 50000,
+            "created": "2023-05-05T21:00:25.729Z",
+            "modified": "2023-05-05T21:00:25.729Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"nome\": \"Individuo de Tal\",\n    \"cpf\": \"12345678601\",\n    \"dataNascimento\": \"1990-02-02\",\n    \"email\": \"ciclano@example.com\",\n    \"foto\": \"null\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "05d3db69-551a-4c6d-86b9-3bdedf9beb0d",
+            "colId": "cd8f2f6b-80aa-4c67-ba73-032854bebbf0",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/clientes/5",
+            "url": "http://localhost:3000/api/v1/clientes/5",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-05-05T21:00:30.050Z",
+            "modified": "2023-05-05T21:00:30.050Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
