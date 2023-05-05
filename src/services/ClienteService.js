@@ -26,10 +26,24 @@ class ClienteService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const {
+            nome,
+            cpf,
+            dataNascimento,
+            email,
+            foto
+        } = req.body;
         const cliente = await Cliente.findByPk(id, { include: { all: true, nested: true } });
         if (!cliente) {
             throw "Cliente não encontrado";
         }
+        Object.assign(cliente, {
+            nome,
+            cpf,
+            dataNascimento,
+            email,
+            foto
+        });
         return await cliente.save(req.body);
     }
 
