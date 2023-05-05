@@ -1,0 +1,976 @@
+{
+	"info": {
+		"_postman_id": "4f2f6610-cb71-4737-a983-f4fa6a415943",
+		"name": "Cascudo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21674162",
+		"_collection_link": "https://lively-sunset-494838.postman.co/workspace/My-Workspace~ef13adae-bdfc-4e98-844c-f62890594ae3/collection/21674162-4f2f6610-cb71-4737-a983-f4fa6a415943?action=share&creator=21674162&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Cerveja",
+			"item": [
+				{
+					"name": "Read All Cervejas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/cervejas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cervejas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read One Cerveja",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/cervejas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cervejas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One Cerveja",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"qtdMaxEstoque\": 1,\n    \"qtdVazio\": 0,\n    \"qtdCheio\": 1,\n    \"qtdAlcool\": 4.8,\n    \"precoCerveja\": 6.25,\n    \"precoCasco\": 0.65,\n    \"litragem\": \"600\",\n    \"nome\": \"Itaipava 100% Malte\",\n    \"imagem\": null,\n    \"marcaId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/cervejas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cervejas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Total One Cerveja",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"qtdMaxEstoque\": 1,\n    \"qtdVazio\": 0,\n    \"qtdCheio\": 1,\n    \"qtdAlcool\": 4.8,\n    \"precoCerveja\": 6.25,\n    \"precoCasco\": 0.65,\n    \"litragem\": \"600\",\n    \"nome\": \"Itaipava 100% Puro Malte\",\n    \"imagem\": null,\n    \"marcaId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/cervejas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cervejas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Parcial One Cerveja",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Itaipava 100% Puro Malte\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/cervejas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cervejas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Cerveja",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/cervejas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cervejas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marca",
+			"item": [
+				{
+					"name": "Read All Marcas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/marcas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"marcas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read One Marca",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/marcas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"marcas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One Marca",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Stella Artois\",\n    \"logo\": null,\n    \"origem\": \"Bélgica\",\n    \"fornecedorId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/marcas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"marcas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Total One Marca",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Spaten\",\n    \"logo\": null,\n    \"origem\": \"Alemanha\",\n    \"fornecedorId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/marcas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"marcas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Parcial One Marca",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Spaten\",\n    \"logo\": null,\n    \"origem\": \"Alemanha\",\n    \"fornecedorId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/marcas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"marcas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Marca",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Spaten\",\n    \"logo\": null,\n    \"origem\": \"Alemanha\",\n    \"fornecedorId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/marcas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"marcas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fornecedor",
+			"item": [
+				{
+					"name": "Read All Fornecedores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/fornecedores/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fornecedores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read  One Fornecedor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/fornecedores/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fornecedores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One Fornecedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Cidade Imperial\",\n    \"logo\": null,\n    \"endereco\": \"Rua das Cervejas, 321\",\n    \"horaEntrega\": \"15:32:57\",\n    \"diaEntrega\": \"terça\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/fornecedores/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fornecedores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Total One Fornecedor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Cidade Imperial\",\n    \"logo\": null,\n    \"endereco\": \"Rua das Cervejas, 666\",\n    \"horaEntrega\": \"15:32:57\",\n    \"diaEntrega\": \"terça\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/fornecedores/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fornecedores",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Parcial One Fornecedor",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"endereco\": \"Rua das Cervejas, 132\",\n    \"horaEntrega\": \"19:32:57\",\n    \"diaEntrega\": \"quinta\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/fornecedores/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fornecedores",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Fornecedor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/fornecedores/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"fornecedores",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Venda",
+			"item": [
+				{
+					"name": "Read All Vendas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read One Venda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create One Venda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 0,\n    \"totalComCasco\": 0,\n    \"createdAt\": \"2023-04-21T19:07:17.627Z\",\n    \"updatedAt\": \"2023-04-21T19:07:17.627Z\",\n    \"clienteId\": 1,\n    \"funcionarioId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Total One Venda",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 0,\n    \"totalComCasco\": 0,\n    \"createdAt\": \"2023-04-21T19:07:17.627Z\",\n    \"updatedAt\": \"2023-04-21T19:07:17.627Z\",\n    \"clienteId\": 3,\n    \"funcionarioId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update One Venda",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clienteId\": 2,\n    \"funcionarioId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One Venda",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ItemVenda",
+			"item": [
+				{
+					"name": "Read All ItemVendas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/itemvendas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"itemvendas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Once ItemVenda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/itemvendas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"itemvendas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Once ItemVenda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 3,\n    \"valorCerveja\": 7.5,\n    \"valorCasco\": 2,\n    \"vendaId\": 1,\n    \"cervejaId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/itemvendas/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"itemvendas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Total Once ItemVenda",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 6,\n    \"valorCerveja\": 7.5,\n    \"valorCasco\": 2,\n    \"vendaId\": 1,\n    \"cervejaId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/itemvendas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"itemvendas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Parcial Once ItemVenda",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 4,\n    \"valorCerveja\": 9.6,\n    \"valorCasco\": 2.5,\n    \"vendaId\": 3,\n    \"cervejaId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/itemvendas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"itemvendas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete One ItemVenda",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/itemvendas/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"itemvendas",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Devolucao",
+			"item": [
+				{
+					"name": "Read all Devolucao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/devolucoes/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"devolucoes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read one Devolucao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/devolucoes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"devolucoes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create one Devolucao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 1,\n    \"valorCasco\": 2,\n    \"vendaId\": 1,\n    \"cervejaId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/devolucoes/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"devolucoes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Total one Devolucao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 5,\n    \"valorCasco\": 2,\n    \"vendaId\": 1,\n    \"cervejaId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/devolucoes/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"devolucoes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Parcial one Devolucao",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 3,\n    \"valorCasco\": 1,\n    \"vendaId\": 2,\n    \"cervejaId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/devolucoes/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"devolucoes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete one Devolucao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantidade\": 3,\n    \"valorCasco\": 1,\n    \"vendaId\": 2,\n    \"cervejaId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/devolucoes/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"devolucoes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
