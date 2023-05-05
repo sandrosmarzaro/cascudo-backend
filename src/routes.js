@@ -3,9 +3,13 @@ import { Router } from "express";
 import { VendaController } from "./controllers/VendaController.js";
 import { ItemVendaController } from "./controllers/ItemVendaController.js";
 import { DevolucaoController } from "./controllers/DevolucaoController.js";
+import { EntradaController } from "./controllers/EntradaController.js";
+import { ItemEntradaController } from "./controllers/ItemEntradaController.js";
 import { CervejaController } from "./controllers/CervejaController.js";
 import { MarcaController } from "./controllers/MarcaController.js";
 import { FornecedorController } from "./controllers/FornecedorController.js";
+import { FuncionarioController } from "./controllers/FuncionarioController.js";
+import { ClienteController } from "./controllers/ClienteController.js";
 
 const routes = Router();
 
@@ -33,6 +37,22 @@ routes.put(`${uri}/:id`, DevolucaoController.updateTotal);
 routes.patch(`${uri}/:id`, DevolucaoController.updateParcial);
 routes.delete(`${uri}/:id`, DevolucaoController.destroy);
 
+uri = "/entradas";
+routes.get(uri, EntradaController.index);
+routes.get(`${uri}/:id`, EntradaController.show);
+routes.post(uri, EntradaController.store);
+routes.put(`${uri}/:id`, EntradaController.updateTotal);
+routes.patch(`${uri}/:id`, EntradaController.updateParcial);
+routes.delete(`${uri}/:id`, EntradaController.destroy);
+
+uri = "/itementradas";
+routes.get(uri, ItemEntradaController.index);
+routes.get(`${uri}/:id`, ItemEntradaController.show);
+routes.post(uri, ItemEntradaController.store);
+routes.put(`${uri}/:id`, ItemEntradaController.updateTotal);
+routes.patch(`${uri}/:id`, ItemEntradaController.updateParcial);
+routes.delete(`${uri}/:id`, ItemEntradaController.destroy);
+
 uri = "/cervejas";
 routes.get(uri, CervejaController.index);
 routes.get(`${uri}/:id`, CervejaController.show);
@@ -56,5 +76,21 @@ routes.post(uri, FornecedorController.store);
 routes.put(`${uri}/:id`, FornecedorController.updateTotal);
 routes.patch(`${uri}/:id`, FornecedorController.updateParcial);
 routes.delete(`${uri}/:id`, FornecedorController.destroy);
+
+uri = "/funcionarios";
+routes.get(uri, FuncionarioController.index);
+routes.get(`${uri}/:id`, FuncionarioController.show);
+routes.post(uri, FuncionarioController.store);
+routes.put(`${uri}/:id`, FuncionarioController.updateTotal);
+routes.patch(`${uri}/:id`, FuncionarioController.updateParcial);
+routes.delete(`${uri}/:id`, FuncionarioController.destroy);
+
+uri = "/clientes";
+routes.get(uri, ClienteController.index);
+routes.get(`${uri}/:id`, ClienteController.show);
+routes.post(uri, ClienteController.store);
+routes.put(`${uri}/:id`, ClienteController.updateTotal);
+routes.patch(`${uri}/:id`, ClienteController.updateParcial);
+routes.delete(`${uri}/:id`, ClienteController.destroy);
 
 export default routes;
