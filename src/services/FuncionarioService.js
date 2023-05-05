@@ -26,10 +26,24 @@ class FuncionarioService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const {
+            nome,
+            codigo,
+            dataNascimento,
+            senha,
+            foto
+        } = req.body;
         const funcionario = await Funcionario.findByPk(id, { include: { all: true, nested: true } });
         if (!funcionario) {
             throw "Funcionário não encontrado";
         }
+        Object.assign(funcionario, {
+            nome,
+            codigo,
+            dataNascimento,
+            senha,
+            foto
+        });
         return await funcionario.save(req.body);
     }
 
