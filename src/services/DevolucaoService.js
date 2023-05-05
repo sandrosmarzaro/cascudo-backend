@@ -26,11 +26,13 @@ class DevolucaoService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const  { quantidade, valorCasco, vendaId, cervejaId } = req.body;
         const devolucao = await Devolucao.findByPk(id, { include: { all: true, nested: true } });
         if (!devolucao) {
             throw "Devolucao não encontrada";
         }
-        return await devolucao.save(req.body);
+        Object.assign(devolucao, { quantidade, valorCasco, vendaId, cervejaId });
+        return await devolucao.save();
     }
 
     static async destroy(req) {

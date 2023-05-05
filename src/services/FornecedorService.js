@@ -26,11 +26,13 @@ class FornecedorService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const { nome, logo, endereco, horaEntrega, diaEntrega } = req.body;
         const fornecedor = await Fornecedor.findByPk(id, { include: { all: true, nested: true } });
         if (!fornecedor) {
             throw "Fornecedor não encontrado";
         }
-        return await fornecedor.save(req.body);
+        Object.assign(fornecedor, { nome, logo, endereco, horaEntrega, diaEntrega });
+        return await fornecedor.save();
     }
 
     static async destroy(req) {

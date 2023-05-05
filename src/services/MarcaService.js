@@ -26,11 +26,13 @@ class MarcaService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const { nome, logo, origem, fornecedorId } = req.body;
         const marca = await Marca.findByPk(id, { include: { all: true, nested: true } });
         if (!marca) {
             throw "Marca não encontrada";
         }
-        return await marca.save(req.body);
+        Object.assign(marca, { nome, logo, origem, fornecedorId });
+        return await marca.save();
     }
 
     static async destroy(req) {

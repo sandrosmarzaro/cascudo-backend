@@ -38,11 +38,13 @@ class VendaService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const { dataHora, totalSemCasco, totalComCasco, clienteId, funcionarioId } = req.body;
         const venda = await Venda.findByPk(id, { include: { all: true, nested: true } });
         if (!venda) {
             throw "Venda não encontrada";
         }
-        return await venda.save(req.body);
+        Object.assign(venda, { dataHora, totalSemCasco, totalComCasco, clienteId, funcionarioId });
+        return await venda.save();
     }
 
     static async destroy(req) {

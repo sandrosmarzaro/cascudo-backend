@@ -48,11 +48,35 @@ class CervejaService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const {
+            qtdMaxEstoque,
+            qtdVazio,
+            qtdCheio,
+            qtdAlcool,
+            precoCerveja,
+            precoCasco,
+            litragem,
+            nome,
+            imagem,
+            marcaId
+        } = req.body;
         const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
         if (!cerveja) {
             throw "Cerveja não encontrada";
         }
-        return await cerveja.save(req.body);
+        Object.assign(cerveja, {
+            qtdMaxEstoque,
+            qtdVazio,
+            qtdCheio,
+            qtdAlcool,
+            precoCerveja,
+            precoCasco,
+            litragem,
+            nome,
+            imagem,
+            marcaId
+        });
+        return await cerveja.save();
     }
 
     static async destroy(req) {
