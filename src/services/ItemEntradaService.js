@@ -26,10 +26,24 @@ class ItemEntradaService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const {
+            quantidade,
+            valorCerveja,
+            valorCasco,
+            cervejaId,
+            entradaId
+        } = req.body;
         const itemEntrada = await ItemEntrada.findByPk(id, { include: { all: true, nested: true } });
         if (!itemEntrada) {
-            throw "Item de entrada não encontrado";
+            throw "Entrada não encontrada";
         }
+        Object.assign(itemEntrada, {
+            quantidade,
+            valorCerveja,
+            valorCasco,
+            cervejaId,
+            entradaId
+        });
         return await itemEntrada.save(req.body);
     }
 
