@@ -43,7 +43,8 @@ class CervejaService {
         if (!cerveja) {
             throw "Cerveja não encontrada";
         }
-        return await cerveja.update(req.body);
+        await cerveja.update(req.body);
+        return await Cerveja.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -76,7 +77,8 @@ class CervejaService {
             imagem,
             marcaId
         });
-        return await cerveja.save();
+        await cerveja.save();
+        return await Cerveja.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {

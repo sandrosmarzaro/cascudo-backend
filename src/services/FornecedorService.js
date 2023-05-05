@@ -21,7 +21,8 @@ class FornecedorService {
         if (!fornecedor) {
             throw "Fornecedor não encontrado";
         }
-        return await fornecedor.update(req.body);
+        await fornecedor.update(req.body);
+        return await Fornecedor.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -32,7 +33,8 @@ class FornecedorService {
             throw "Fornecedor não encontrado";
         }
         Object.assign(fornecedor, { nome, logo, endereco, horaEntrega, diaEntrega });
-        return await fornecedor.save();
+        await fornecedor.save();
+        return await Fornecedor.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {

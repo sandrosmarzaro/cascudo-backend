@@ -21,7 +21,8 @@ class MarcaService {
         if (!marca) {
             throw "Marca não encontrada";
         }
-        return await marca.update(req.body);
+        await marca.update(req.body);
+        return await Marca.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -32,7 +33,8 @@ class MarcaService {
             throw "Marca não encontrada";
         }
         Object.assign(marca, { nome, logo, origem, fornecedorId });
-        return await marca.save();
+        await marca.save();
+        return await Marca.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {

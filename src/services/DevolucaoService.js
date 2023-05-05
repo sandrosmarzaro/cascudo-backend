@@ -21,7 +21,8 @@ class DevolucaoService {
         if (!devolucao) {
             throw "Devolucao não encontrada";
         }
-        return await devolucao.update(req.body);
+        await devolucao.update(req.body);
+        return await Devolucao.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -32,7 +33,8 @@ class DevolucaoService {
             throw "Devolucao não encontrada";
         }
         Object.assign(devolucao, { quantidade, valorCasco, vendaId, cervejaId });
-        return await devolucao.save();
+        await devolucao.save();
+        return await Devolucao.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {

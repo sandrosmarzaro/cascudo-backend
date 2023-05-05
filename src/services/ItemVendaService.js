@@ -21,7 +21,8 @@ class ItemVendaService {
         if (!itemvenda) {
             throw "ItemVenda não encontrado";
         }
-        return await itemvenda.update(req.body);
+        await itemvenda.update(req.body);
+        return await ItemVenda.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -32,7 +33,8 @@ class ItemVendaService {
             throw "ItemVenda não encontrado";
         }
         Object.assign(itemvenda, { quantidade, valorCerveja, valorCasco, vendaId, cervejaId });
-        return await itemvenda.save();
+        await itemvenda.save();
+        return await ItemVenda.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {
