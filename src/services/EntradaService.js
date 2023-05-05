@@ -26,10 +26,18 @@ class EntradaService {
 
     static async updateTotal(req) {
         const { id } = req.params;
+        const {
+            dataHora,
+            funcionarioId
+        } = req.body;
         const entrada = await Entrada.findByPk(id, { include: { all: true, nested: true } });
         if (!entrada) {
             throw "Entrada não encontrada";
         }
+        Object.assign(entrada, {
+            dataHora,
+            funcionarioId
+        });
         return await entrada.save(req.body);
     }
 
