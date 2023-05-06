@@ -12,7 +12,8 @@ class EntradaService {
 
     static async store(req) {
         const { dataHora, itensEntrada, funcionarioId } = req.body;
-        return await Entrada.create({ dataHora, itensEntrada, funcionarioId }, { include: 'itensEntrada' }); //Trecho para consultar todos os itens relacionados a entrada pesquisada(junto).
+        return await Entrada.create({ dataHora, itensEntrada, funcionarioId }); 
+        //{ include: 'itensEntrada' }); //Trecho para consultar todos os itens relacionados a entrada pesquisada(junto).
     }
 
     static async updateParcial(req) {
@@ -21,7 +22,8 @@ class EntradaService {
         if (!entrada) {
             throw "Entrada não encontrada";
         }
-        return await entrada.update(req.body);
+        await entrada.update(req.body);
+        return await Entrada.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -38,7 +40,8 @@ class EntradaService {
             dataHora,
             funcionarioId
         });
-        return await entrada.save(req.body);
+        await entrada.save(req.body);
+        return await Entrada.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {
