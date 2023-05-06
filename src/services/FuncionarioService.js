@@ -21,7 +21,8 @@ class FuncionarioService {
         if (!funcionario) {
             throw "Funcionário não encontrado";
         }
-        return await funcionario.update(req.body);
+        await funcionario.update(req.body);
+        return await Funcionario.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -44,7 +45,8 @@ class FuncionarioService {
             senha,
             foto
         });
-        return await funcionario.save(req.body);
+        await funcionario.save(req.body);
+        return await Funcionario.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {
