@@ -21,7 +21,8 @@ class ClienteService {
         if (!cliente) {
             throw "Cliente não encontrado";
         }
-        return await cliente.update(req.body);
+        await cliente.update(req.body);
+        return await Cliente.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -44,7 +45,8 @@ class ClienteService {
             email,
             foto
         });
-        return await cliente.save(req.body);
+        await cliente.save(req.body);
+        return await Cliente.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {
