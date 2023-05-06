@@ -21,7 +21,8 @@ class ItemEntradaService {
         if (!itemEntrada) {
             throw "Item de entrada não encontrado";
         }
-        return await itemEntrada.update(req.body);
+        await itemEntrada.update(req.body);
+        return await ItemEntrada.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async updateTotal(req) {
@@ -44,7 +45,8 @@ class ItemEntradaService {
             cervejaId,
             entradaId
         });
-        return await itemEntrada.save(req.body);
+        await itemEntrada.save(req.body);
+        return await ItemEntrada.findByPk(id, { include: { all: true, nested: true } });
     }
 
     static async destroy(req) {
