@@ -80,8 +80,12 @@ class VendaService {
         Object.assign(venda, { dataHora, totalSemCasco, totalComCasco, clienteId, funcionarioId });
         await venda.save({ transaction: transaction });
         try{
-            await Promise.all((await venda.itensVenda).map(itemVenda => itemVenda.destroy({ transaction: transaction })));
-            await Promise.all((await venda.devolucoes).map(devolucao => devolucao.destroy({ transaction: transaction })));
+            await Promise.all((await venda.itensVenda).map(
+                itemVenda => itemVenda.destroy({ transaction: transaction })
+            ));
+            await Promise.all((await venda.devolucoes).map(
+                devolucao => devolucao.destroy({ transaction: transaction })
+            ));
             await Promise.all(itensVenda.map(itemVenda => {
                 return venda.createItemVenda({
                     quantidade: itemVenda.quantidade,
