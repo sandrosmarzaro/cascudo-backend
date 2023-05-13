@@ -21,14 +21,42 @@ class VendaService {
             totalComCasco,
             clienteId,
             funcionarioId,
+            itensVenda,
+            devolucoes
         } = req.body;
-        return await Venda.create({
-            dataHora,
-            totalSemCasco,
-            totalComCasco,
-            clienteId,
-            funcionarioId,
-        });
+        const transaction = await sequelize.transaction();
+        try {
+            const venda = await Venda.create({
+                dataHora,
+                totalSemCasco,
+                totalComCasco,
+                clienteId,
+                funcionarioId,
+            }, { transaction: transaction });
+            await Promise.all(itensVenda.map(async (itemVenda) => {
+                return await venda.createItemVenda({
+                    quantidade: itemVenda.quantidade,
+                    valorCerveja: itemVenda.valorCerveja,
+                    valorCasco: itemVenda.valorCasco,
+                    cervejaId: itemVenda.cervejaId,
+                    vendaId: venda.id
+                }, { transaction: transaction });
+            }));
+            await Promise.all(devolucoes.map(async (devolucao) => {
+                return await venda.createDevolucao({
+                    quantidade: devolucao.quantidade,
+                    valorCasco: devolucao.valorCasco,
+                    cervejaId: devolucao.cervejaId,
+                    vendaId: venda.id
+                }, { transaction: transaction });
+            }));
+            await transaction.commit();
+            return await Venda.findByPk(venda.id, { include: { all: true, nested: true } });
+        }
+        catch (err) {
+            await transaction.rollback();
+            throw "Não foi possível criar a venda";
+        }
     }
 
     static async updateParcial(req) {
@@ -43,14 +71,41 @@ class VendaService {
 
     static async updateTotal(req) {
         const { id } = req.params;
-        const { dataHora, totalSemCasco, totalComCasco, clienteId, funcionarioId } = req.body;
+        const { dataHora, totalSemCasco, totalComCasco, clienteId, funcionarioId, itensVenda, devolucoes } = req.body;
         const venda = await Venda.findByPk(id, { include: { all: true, nested: true } });
         if (!venda) {
             throw "Venda não encontrada";
         }
+        const transaction = await sequelize.transaction();
         Object.assign(venda, { dataHora, totalSemCasco, totalComCasco, clienteId, funcionarioId });
-        await venda.save();
-        return await Venda.findByPk(id, { include: { all: true, nested: true } });
+        await venda.save({ transaction: transaction });
+        try{
+            await Promise.all((await venda.itensVenda).map(itemVenda => itemVenda.destroy({ transaction: transaction })));
+            await Promise.all((await venda.devolucoes).map(devolucao => devolucao.destroy({ transaction: transaction })));
+            await Promise.all(itensVenda.map(itemVenda => {
+                return venda.createItemVenda({
+                    quantidade: itemVenda.quantidade,
+                    valorCerveja: itemVenda.valorCerveja,
+                    valorCasco: itemVenda.valorCasco,
+                    cervejaId: itemVenda.cervejaId,
+                    vendaId: venda.id
+                }, { transaction: transaction });
+            }));
+            await Promise.all(devolucoes.map(devolucao => {
+                return venda.createDevolucao({
+                    quantidade: devolucao.quantidade,
+                    valorCasco: devolucao.valorCasco,
+                    vendaId: venda.id,
+                    cervejaId: devolucao.cervejaId
+                }, { transaction: transaction });
+            }));
+            await transaction.commit();
+            return await Venda.findByPk(id, { include: { all: true, nested: true } });
+        }
+        catch (err) {
+            await transaction.rollback();
+            throw "Não foi possível atualizar a venda";
+        }
     }
 
     static async destroy(req) {
