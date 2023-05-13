@@ -1,8 +1,8 @@
 import { Venda } from '../models/Venda.js';
-import { CervejaService } from "./CervejaService";
-import { ClienteService } from "./ClienteService";
+import { CervejaService } from "./CervejaService.js";
+import { ClienteService } from "./ClienteService.js";
 
-import sequelize from '../config/database-connection.js';
+import sequelize from '../config/connection.js';
 
 class VendaService {
     static async index() {
