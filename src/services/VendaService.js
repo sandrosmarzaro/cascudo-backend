@@ -1,5 +1,5 @@
 import { Venda } from '../models/Venda.js';
-import { CervejaService } from "./CervejaService.js";
+import { Cerveja } from '../models/Cerveja.js';
 import { ClienteService } from "./ClienteService.js";
 
 import sequelize from '../config/connection.js';
@@ -50,12 +50,30 @@ class VendaService {
                     vendaId: venda.id
                 }, { transaction: transaction });
             }));
+            await this.verifyEmpityStockAvailable(await devolucoes);
+            if (await this.isDevolutionDiscountAvailable(venda.clienteId)) {
+                const discountPercentage = 0.05;
+                const discountValueSemCasco = venda.totalSemCasco * discountPercentage;
+                venda.totalSemCasco -= discountValueSemCasco;
+                const discountValueComCasco = venda.totalComCasco * discountPercentage;
+                venda.totalComCasco -= discountValueComCasco;
+                cliente.qtdCascosDevolvidos -= twoBoxesQtd;
+                const cliente = await ClienteService.show(clienteId, { include: { all: true, nested: true } });
+                if (!cliente) {
+                    throw "Cliente não encontrado";
+                }
+                await ClienteService.updateParcial(
+                    clienteId,
+                    { qtdCascosDevolvidos: cliente.qtdCascosDevolvidos },
+                    { transaction: transaction }
+                );
+            }
             await transaction.commit();
             return await Venda.findByPk(venda.id, { include: { all: true, nested: true } });
         }
         catch (err) {
             await transaction.rollback();
-            throw "Não foi possível criar a venda";
+            throw `Não foi possível criar a venda: ${err}`
         }
     }
 
@@ -126,55 +144,28 @@ class VendaService {
         }
     }
 
-    static async applyBussinessRules(req) {
-        const {
-            dataHora,
-            totalSemCasco,
-            totalComCasco,
-            clienteId,
-            funcionarioId,
-        } = req.body;
-
-        if (await isEmpityStockAvailable()) {
-            await tryApplyDevolutionDiscount(clienteId);
-        }
-        else {
-            throw "Não há espaço nas grades disponível";
-        }
-    }
-
-    static async isEmpityStockAvailable() {
-        const devolutions = await sequelize.query(
-            "SELECT * FROM devolucoes WHERE vendaId = :vendaId",
-            { replacements: { vendaId: this.id }, type: sequelize.QueryTypes.SELECT }
-        );
-        for (const devolution of devolutions) {
-            const cerveja = await CervejaService.show(devolution.cervejaId);
+    static async verifyEmpityStockAvailable(devolucoes) {
+        for (const devolucao of devolucoes) {
+            const cerveja = await Cerveja.findByPk(devolucao.cervejaId, { include: { all: true, nested: true } });
             if (!cerveja) {
                 throw "Cerveja não encontrada";
             }
             const qtdTotalCascos = cerveja.qtdCheio + cerveja.qtdVazio;
             const qtdAvailableCascos = cerveja.qtdMaxEstoque - qtdTotalCascos;
-            if (devolution.quantidade > qtdAvailableCascos) {
+            if (devolucao.quantidade > qtdAvailableCascos) {
                 throw "Não há espaço nas grades disponível";
             }
         }
     }
 
-    static async tryApplyDevolutionDiscount(clienteId) {
+    static async isDevolutionDiscountAvailable(clienteId) {
         const cliente = await ClienteService.show(clienteId, { include: { all: true, nested: true } });
         if (!cliente) {
             throw "Cliente não encontrado";
         }
         const twoBoxesQtd = 24;
         if (cliente.qtdCascosDevolvidos >= twoBoxesQtd) {
-            const discountPercentage = 0.05;
-            const discountValueSemCasco = this.totalSemCasco * discountPercentage;
-            this.totalSemCasco -= discountValueSemCasco;
-            const discountValueComCasco = this.totalComCasco * discountPercentage;
-            this.totalComCasco -= discountValueComCasco;
-            cliente.qtdCascosDevolvidos -= twoBoxesQtd;
-            await ClienteService.updateParcial(clienteId, { qtdCascosDevolvidos: cliente.qtdCascosDevolvidos });
+            return true;
         }
     }
 }
