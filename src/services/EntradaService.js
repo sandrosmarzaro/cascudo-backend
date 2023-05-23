@@ -1,4 +1,9 @@
 import { Entrada } from "../models/Entrada.js";
+import { ItemEntrada } from "../models/ItemEntrada.js";
+import { Cerveja } from "../models/Cerveja.js";
+import sequelize from "../config/connection.js";
+import { INTEGER, QueryTypes } from 'sequelize';
+
 
 class EntradaService {
     static async index() {
@@ -12,10 +17,41 @@ class EntradaService {
 
     static async store(req) {
         const { dataHora, itensEntrada, funcionarioId } = req.body;
-        return await Entrada.create({ dataHora, itensEntrada, funcionarioId }); 
-        //{ include: 'itensEntrada' }); //Trecho para consultar todos os itens relacionados a entrada pesquisada(junto).
-    }
 
+        if(await EntradaService.verificarViolacaoRegra2(itensEntrada)){
+            throw "Regra de Negócio 2 violada!";
+        }else{
+            try {
+                const t = await sequelize.transaction();
+                const entrada = await Entrada.create({ dataHora, funcionarioId }, { transaction: t });
+
+                for (const item of itensEntrada) {
+                    await ItemEntrada.create({
+                        quantidade: item.quantidade,
+                        valorCerveja: item.valorCerveja,
+                        valorCasco: item.valorCasco,
+                        entradaId: entrada.id,
+                        cervejaId: item.cervejaId
+                    }, { transaction: t });
+
+                    const qtdCascosVazios = await EntradaService.findQtdVazia(item.cervejaId);
+                    const newQtdVazio = qtdCascosVazios[0].qtd_vazio - item.quantidade;
+
+                    const cerveja = await Cerveja.findByPk(item.cervejaId);
+                    cerveja.qtdVazio = newQtdVazio;
+                    cerveja.qtdCheio += parseInt(item.quantidade);
+                    await cerveja.save({ transaction: t });
+                }
+
+                await t.commit();
+                return await Entrada.findByPk(entrada.id, { include: { all: true, nested: true } });
+            } catch (error) {
+                await t.rollback();
+                throw "Não foi possível criar os itens de entrada!";
+            }
+        }
+    }
+    
     static async updateParcial(req) {
         const { id } = req.params;
         const entrada = await Entrada.findByPk(id, { include: { all: true, nested: true } });
@@ -56,6 +92,20 @@ class EntradaService {
         catch (err) {
             throw "Não foi possível deletar a entrada";
         }
+    }
+
+    static async verificarViolacaoRegra2(itensEntrada) {
+        for (const item of itensEntrada) {
+            const qtdCascosVazios = await EntradaService.findQtdVazia(item.cervejaId);
+            if (qtdCascosVazios[0].qtd_vazio < item.quantidade) {
+                return true;
+            }
+        }
+    }
+
+    static async findQtdVazia(cervejaId) {
+        const obj = await sequelize.query("SELECT cervejas.qtd_vazio FROM cervejas INNER JOIN item_entrada ON cervejas.id = item_entrada.cerveja_id WHERE item_entrada.cerveja_id = :cervejaId", { type: QueryTypes.SELECT, replacements: { cervejaId } });
+        return obj;
     }
 }
 
