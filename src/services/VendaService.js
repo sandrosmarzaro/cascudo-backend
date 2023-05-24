@@ -52,12 +52,15 @@ class VendaService {
             }));
             let moddifedCervejas = [];
             let clientModdifed = []
-            await this.applyChangesOnCervejasStock(itensVenda, moddifedCervejas, transaction);
-            await this.verifyEmpityStockAvailable(devolucoes, moddifedCervejas);
-            await this.applyChangesOnCascosStock(clienteId, moddifedCervejas, clientModdifed, devolucoes, transaction);
-            if (await this.isDevolutionDiscountAvailable(clientModdifed)) {
-                await this.applyDiscountInThisPurchase(venda, clientModdifed, transaction);
-            }
+            await this.checkBussinessRules(
+                venda,
+                itensVenda,
+                devolucoes,
+                moddifedCervejas,
+                clienteId,
+                clientModdifed,
+                transaction
+            );
             await transaction.commit();
             return await Venda.findByPk(venda.id, { include: { all: true, nested: true } });
         }
@@ -135,6 +138,39 @@ class VendaService {
         }
     }
 
+    static async checkBussinessRules(
+        venda,
+        itensVenda,
+        devolucoes,
+        moddifedCervejas,
+        clienteId,
+        clientModdifed,
+        transaction
+    ) {
+        await this.checkEmpityStockAvailableBussinessRule(
+            itensVenda,
+            moddifedCervejas,
+            devolucoes,
+            clienteId,
+            clientModdifed,
+            transaction
+        );
+        await this.checkDiscountBussinessRule(venda, clientModdifed, transaction);
+    }
+
+    static async checkEmpityStockAvailableBussinessRule(
+        itensVenda,
+        moddifedCervejas,
+        devolucoes,
+        clienteId,
+        clientModdifed,
+        transaction
+    ) {
+        await this.applyChangesOnCervejasStock(itensVenda, moddifedCervejas, transaction);
+        await this.verifyEmpityStockAvailable(devolucoes, moddifedCervejas);
+        await this.applyChangesOnCascosStock(clienteId, moddifedCervejas, clientModdifed, devolucoes, transaction);
+    }
+
     static async applyChangesOnCervejasStock(itensVenda, moddifedCervejas,transaction) {
         await Promise.all(itensVenda.map(async (itemVenda) => {
             const cerveja = await CervejaService.show({ params: { id: itemVenda.cervejaId } });
@@ -183,6 +219,12 @@ class VendaService {
                 transaction
             );
         }));
+    }
+
+    static async checkDiscountBussinessRule(venda, clientModdifed, transaction) {
+        if (await this.isDevolutionDiscountAvailable(clientModdifed)) {
+            await this.applyDiscountInThisPurchase(venda, clientModdifed, transaction);
+        }
     }
 
     static async isDevolutionDiscountAvailable(clientModdifed) {
