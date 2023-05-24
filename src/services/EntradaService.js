@@ -44,7 +44,6 @@ class EntradaService {
                     const cerveja = await Cerveja.findByPk(item.cervejaId);
                     cerveja.qtdVazio = newQtdVazio;
                     cerveja.qtdCheio += parseInt(item.quantidade);
-                    console.log(cerveja.fornecedorId);
                     await cerveja.save({ transaction: t });
                 }
 
@@ -102,10 +101,7 @@ class EntradaService {
     static async verificarViolacaoRegra1(itensEntrada){
         for (const item of itensEntrada) {
             const cerveja = await Cerveja.findByPk(item.cervejaId);
-            console.log(cerveja);
             const marca = await Marca.findByPk(cerveja.marcaId);
-            console.log(marca);
-            console.log(typeof(marca.fornecedorId) + " and " + typeof(item.fornecedorSelecionado));
 
             if (marca.fornecedorId !== parseInt(item.fornecedorSelecionado)) {
                 return true;
