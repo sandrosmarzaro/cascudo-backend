@@ -25,16 +25,17 @@ class ClienteService {
         return await Cliente.findByPk(id, { include: { all: true, nested: true } });
     }
 
-    static async updateTotal(req) {
+    static async updateTotal(req, transaction) {
         const { id } = req.params;
         const {
             nome,
             cpf,
             dataNascimento,
             email,
+            qtdCascosDevolvidos,
             foto
         } = req.body;
-        const cliente = await Cliente.findByPk(id, { include: { all: true, nested: true } });
+        const cliente = await Cliente.findByPk(id, { transaction });
         if (!cliente) {
             throw "Cliente não encontrado";
         }
@@ -43,10 +44,11 @@ class ClienteService {
             cpf,
             dataNascimento,
             email,
+            qtdCascosDevolvidos,
             foto
         });
-        await cliente.save(req.body);
-        return await Cliente.findByPk(id, { include: { all: true, nested: true } });
+        await cliente.save({ transaction });
+        return await Cliente.findByPk(id, { include: { all: true, nested: true }, transaction });
     }
 
     static async destroy(req) {

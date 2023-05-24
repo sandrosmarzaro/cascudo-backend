@@ -5,9 +5,9 @@ class CervejaService {
         return await Cerveja.findAll({ include: { all: true, nested: true } });
     }
 
-    static async show(req) {
+    static async show(req, transaction) {
         const { id } = req.params;
-        return await Cerveja.findByPk(id, { include: { all: true, nested: true } });
+        return await Cerveja.findByPk(id, { include: { all: true, nested: true } }, { transaction });
     }
 
     static async store(req) {
@@ -47,7 +47,7 @@ class CervejaService {
         return await Cerveja.findByPk(id, { include: { all: true, nested: true } });
     }
 
-    static async updateTotal(req) {
+    static async updateTotal(req, transaction) {
         const { id } = req.params;
         const {
             qtdMaxEstoque,
@@ -61,7 +61,7 @@ class CervejaService {
             imagem,
             marcaId
         } = req.body;
-        const cerveja = await Cerveja.findByPk(id, { include: { all: true, nested: true } });
+        const cerveja = await Cerveja.findByPk(id, { transaction });
         if (!cerveja) {
             throw "Cerveja não encontrada";
         }
@@ -77,8 +77,8 @@ class CervejaService {
             imagem,
             marcaId
         });
-        await cerveja.save();
-        return await Cerveja.findByPk(id, { include: { all: true, nested: true } });
+        await cerveja.save({ transaction });
+        return await Cerveja.findByPk(id, { include: { all: true, nested: true }, transaction });
     }
 
     static async destroy(req) {

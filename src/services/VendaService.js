@@ -1,5 +1,5 @@
 import { Venda } from '../models/Venda.js';
-import { Cerveja } from '../models/Cerveja.js';
+import { CervejaService } from "./CervejaService.js";
 import { ClienteService } from "./ClienteService.js";
 
 import sequelize from '../config/connection.js';
@@ -50,29 +50,20 @@ class VendaService {
                     vendaId: venda.id
                 }, { transaction: transaction });
             }));
-            await this.verifyEmpityStockAvailable(await devolucoes);
-            if (await this.isDevolutionDiscountAvailable(venda.clienteId)) {
-                const discountPercentage = 0.05;
-                const discountValueSemCasco = venda.totalSemCasco * discountPercentage;
-                venda.totalSemCasco -= discountValueSemCasco;
-                const discountValueComCasco = venda.totalComCasco * discountPercentage;
-                venda.totalComCasco -= discountValueComCasco;
-                cliente.qtdCascosDevolvidos -= twoBoxesQtd;
-                const cliente = await ClienteService.show(clienteId, { include: { all: true, nested: true } });
-                if (!cliente) {
-                    throw "Cliente não encontrado";
-                }
-                await ClienteService.updateParcial(
-                    clienteId,
-                    { qtdCascosDevolvidos: cliente.qtdCascosDevolvidos },
-                    { transaction: transaction }
-                );
+            let moddifedCervejas = [];
+            let clientModdifed = []
+            await this.applyChangesOnCervejasStock(itensVenda, moddifedCervejas, transaction);
+            await this.verifyEmpityStockAvailable(devolucoes, moddifedCervejas);
+            await this.applyChangesOnCascosStock(clienteId, moddifedCervejas, clientModdifed, devolucoes, transaction);
+            if (await this.isDevolutionDiscountAvailable(clientModdifed)) {
+                await this.applyDiscountInThisPurchase(venda, clientModdifed, transaction);
             }
             await transaction.commit();
             return await Venda.findByPk(venda.id, { include: { all: true, nested: true } });
         }
         catch (err) {
             await transaction.rollback();
+            console.error(err);
             throw `Não foi possível criar a venda: ${err}`
         }
     }
@@ -144,12 +135,24 @@ class VendaService {
         }
     }
 
-    static async verifyEmpityStockAvailable(devolucoes) {
+    static async applyChangesOnCervejasStock(itensVenda, moddifedCervejas,transaction) {
+        await Promise.all(itensVenda.map(async (itemVenda) => {
+            const cerveja = await CervejaService.show({ params: { id: itemVenda.cervejaId } });
+            cerveja.qtdCheio -= itemVenda.quantidade;
+            moddifedCervejas.push(cerveja);
+            await CervejaService.updateTotal(
+                {
+                    params: { id: cerveja.id },
+                    body: cerveja
+                },
+                transaction
+            );
+        }));
+    }
+
+    static async verifyEmpityStockAvailable(devolucoes, moddifedCervejas) {
         for (const devolucao of devolucoes) {
-            const cerveja = await Cerveja.findByPk(devolucao.cervejaId, { include: { all: true, nested: true } });
-            if (!cerveja) {
-                throw "Cerveja não encontrada";
-            }
+            const cerveja = moddifedCervejas.find(cerveja => cerveja.id === devolucao.cervejaId);
             const qtdTotalCascos = cerveja.qtdCheio + cerveja.qtdVazio;
             const qtdAvailableCascos = cerveja.qtdMaxEstoque - qtdTotalCascos;
             if (devolucao.quantidade > qtdAvailableCascos) {
@@ -158,15 +161,54 @@ class VendaService {
         }
     }
 
-    static async isDevolutionDiscountAvailable(clienteId) {
-        const cliente = await ClienteService.show(clienteId, { include: { all: true, nested: true } });
-        if (!cliente) {
-            throw "Cliente não encontrado";
-        }
+    static async applyChangesOnCascosStock(clienteId, moddifedCervejas, clientModdifed, devolucoes, transaction) {
+        const cliente = await ClienteService.show({ params: { id: clienteId } });
+        await Promise.all(devolucoes.map(async (devolucao) => {
+            const cerveja = moddifedCervejas.find(cerveja => cerveja.id === devolucao.cervejaId);
+            cerveja.qtdVazio += devolucao.quantidade;
+            await CervejaService.updateTotal(
+                {
+                    params: { id: cerveja.id },
+                    body: cerveja
+                },
+                transaction
+            );
+            cliente.qtdCascosDevolvidos += devolucao.quantidade;
+            clientModdifed.push(cliente);
+            await ClienteService.updateTotal(
+                {
+                    params: { id: cliente.id },
+                    body: cliente
+                },
+                transaction
+            );
+        }));
+    }
+
+    static async isDevolutionDiscountAvailable(clientModdifed) {
         const twoBoxesQtd = 24;
-        if (cliente.qtdCascosDevolvidos >= twoBoxesQtd) {
-            return true;
-        }
+        return clientModdifed[0].qtdCascosDevolvidos >= twoBoxesQtd;
+    }
+
+    static async applyDiscountInThisPurchase(venda, clientModdifed, transaction) {
+        const cliente = clientModdifed[0];
+        const discountPercentage = 0.05;
+        const twoBoxesQtd = 24;
+        const discountValueSemCasco = venda.totalSemCasco * discountPercentage;
+        venda.totalSemCasco -= discountValueSemCasco;
+        const discountValueComCasco = venda.totalComCasco * discountPercentage;
+        venda.totalComCasco -= discountValueComCasco;
+        cliente.qtdCascosDevolvidos -= twoBoxesQtd;
+        venda.totalSemCasco = Number(venda.totalSemCasco.toFixed(2));
+        venda.totalComCasco = Number(venda.totalComCasco.toFixed(2));
+        await ClienteService.updateTotal(
+            {
+                params: { id: cliente.id },
+                body: cliente
+            },
+            transaction
+        );
+        await venda.save({ transaction: transaction });
     }
 }
 
