@@ -1,6 +1,7 @@
 import { Entrada } from "../models/Entrada.js";
 import { ItemEntrada } from "../models/ItemEntrada.js";
 import { Cerveja } from "../models/Cerveja.js";
+import { Marca } from "../models/Marca.js";
 import sequelize from "../config/connection.js";
 import { INTEGER, QueryTypes } from 'sequelize';
 
@@ -18,7 +19,9 @@ class EntradaService {
     static async store(req) {
         const { dataHora, itensEntrada, funcionarioId } = req.body;
 
-        if(await EntradaService.verificarViolacaoRegra2(itensEntrada)){
+        if(await EntradaService.verificarViolacaoRegra1(itensEntrada)){
+            throw "Regra de Negócio 1 violada!";
+        }else if(await EntradaService.verificarViolacaoRegra2(itensEntrada)){
             throw "Regra de Negócio 2 violada!";
         }else{
             try {
@@ -30,6 +33,7 @@ class EntradaService {
                         quantidade: item.quantidade,
                         valorCerveja: item.valorCerveja,
                         valorCasco: item.valorCasco,
+                        fornecedorSelecionado: item.fornecedorSelecionado,
                         entradaId: entrada.id,
                         cervejaId: item.cervejaId
                     }, { transaction: t });
@@ -40,6 +44,7 @@ class EntradaService {
                     const cerveja = await Cerveja.findByPk(item.cervejaId);
                     cerveja.qtdVazio = newQtdVazio;
                     cerveja.qtdCheio += parseInt(item.quantidade);
+                    console.log(cerveja.fornecedorId);
                     await cerveja.save({ transaction: t });
                 }
 
@@ -91,6 +96,20 @@ class EntradaService {
         }
         catch (err) {
             throw "Não foi possível deletar a entrada";
+        }
+    }
+
+    static async verificarViolacaoRegra1(itensEntrada){
+        for (const item of itensEntrada) {
+            const cerveja = await Cerveja.findByPk(item.cervejaId);
+            console.log(cerveja);
+            const marca = await Marca.findByPk(cerveja.marcaId);
+            console.log(marca);
+            console.log(typeof(marca.fornecedorId) + " and " + typeof(item.fornecedorSelecionado));
+
+            if (marca.fornecedorId !== parseInt(item.fornecedorSelecionado)) {
+                return true;
+            }
         }
     }
 
