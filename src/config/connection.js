@@ -79,6 +79,7 @@ async function populateDatase() {
         cpf: '12345678901',
         dataNascimento: '1990-01-01',
         email: 'joao.silva@example.com',
+        qtdCascosDevolvidos: 23,
         foto: null
     });
     clientes[1] = await Cliente.create({
@@ -86,6 +87,7 @@ async function populateDatase() {
         cpf: '23456789012',
         dataNascimento: '1995-05-05',
         email: 'maria.santos@example.com',
+        qtdCascosDevolvidos: 24,
         foto: null
     });
     clientes[2] = await Cliente.create({
@@ -93,6 +95,7 @@ async function populateDatase() {
         cpf: '34567890123',
         dataNascimento: '2000-12-31',
         email: 'pedro.oliveira@example.com',
+        qtdCascosDevolvidos: 25,
         foto: null
     });
     clientes[3] = await Cliente.create({
@@ -100,6 +103,7 @@ async function populateDatase() {
         cpf: '45678901234',
         dataNascimento: '1985-10-15',
         email: 'ana.paula.souza@example.com',
+        qtdCascosDevolvidos: 0,
         foto: null
     });
 

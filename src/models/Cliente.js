@@ -72,6 +72,26 @@ class Cliente extends Model {
                     }
                 }
             },
+            qtdCascosDevolvidos: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 0,
+                validate: {
+                    notNull: {
+                        msg: 'A quantidade de cascos devolvidos é obrigatória'
+                    },
+                    notEmpty: {
+                        msg: 'A quantidade de cascos devolvidos não pode ser vazia'
+                    },
+                    isInt: {
+                        msg: 'A quantidade de cascos devolvidos deve ser um número inteiro'
+                    },
+                    min: {
+                        args: [0],
+                        msg: 'A quantidade de cascos devolvidos deve ser no mínimo 0'
+                    }
+                }
+            },
             foto: {
                 type: DataTypes.BLOB('long'),
                 allowNull: true
