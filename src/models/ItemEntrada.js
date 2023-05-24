@@ -59,6 +59,21 @@ class ItemEntrada extends Model {
                         msg: 'O valor do casco deve ser maior ou igual a zero'
                     }
                 }
+            },
+            fornecedorSelecionado: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: 'O fornecedor selecionado é obrigatório'
+                    },
+                    notEmpty: {
+                        msg: 'O fornecedor selecionado não pode ser vazio'
+                    },
+                    isInt: {
+                        msg: 'O fornecedor selecionado deve ser um número inteiro'
+                    }
+                }
             }
         }, {
             sequelize,
