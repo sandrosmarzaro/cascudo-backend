@@ -280,6 +280,7 @@ async function populateDatase() {
         quantidade: 1,
         valorCerveja: 7.50,
         valorCasco: 2.00,
+        fornecedorSelecionado: 1,
         cervejaId: cervejas[0].id,
         entradaId: entradas[0].id
     });
@@ -287,6 +288,7 @@ async function populateDatase() {
         quantidade: 2,
         valorCerveja: 10.90,
         valorCasco: 5.00,
+        fornecedorSelecionado: 2,
         cervejaId: cervejas[1].id,
         entradaId: entradas[1].id
     });
@@ -294,6 +296,7 @@ async function populateDatase() {
         quantidade: 3,
         valorCerveja: 8.25,
         valorCasco: 1.50,
+        fornecedorSelecionado: 3,
         cervejaId: cervejas[2].id,
         entradaId: entradas[2].id
     });
@@ -301,6 +304,7 @@ async function populateDatase() {
         quantidade: 4,
         valorCerveja: 2.50,
         valorCasco: 0.75,
+        fornecedorSelecionado: 4,
         cervejaId: cervejas[3].id,
         entradaId: entradas[3].id
     });
