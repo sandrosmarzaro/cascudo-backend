@@ -405,6 +405,63 @@
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "ec9f4984-f4b0-41e2-8b8f-1681be499a1e",
+            "colId": "98b4f152-6d83-43cb-8fe6-e458be1e0ea1",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/",
+            "url": "http://localhost:3000/api/v1/entradas/",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-05-26T14:46:06.904Z",
+            "modified": "2023-05-26T14:46:06.904Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"dataHora\": \"2023-05-26T03:00:00.000Z\",\n    \"funcionarioId\": \"3\",\n    \"itensEntrada\": [\n      {\n        \"quantidade\": \"20\",\n        \"valorCerveja\": \"7.5\",\n        \"valorCasco\": \"2\",\n        \"fornecedorSelecionado\": \"3\",\n        \"cervejaId\": \"3\"\n      }\n      ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "419303f5-4df9-4844-b68b-4f509c2336f0",
+            "colId": "98b4f152-6d83-43cb-8fe6-e458be1e0ea1",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/",
+            "url": "http://localhost:3000/api/v1/entradas/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-05-26T14:41:35.588Z",
+            "modified": "2023-05-26T14:41:35.588Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"dataHora\": \"2023-05-26T03:00:00.000Z\",\n    \"funcionarioId\": \"3\",\n    \"itensEntrada\": [\n      {\n        \"quantidade\": \"20\",\n        \"valorCerveja\": \"7.5\",\n        \"valorCasco\": \"2\",\n        \"fornecedorSelecionado\": \"3\",\n        \"cervejaId\": \"2\"\n      }\n      ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "678bc887-3871-4c59-9bca-5402a1f32889",
+            "colId": "98b4f152-6d83-43cb-8fe6-e458be1e0ea1",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/",
+            "url": "http://localhost:3000/api/v1/entradas/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-05-26T14:42:06.322Z",
+            "modified": "2023-05-26T14:42:06.322Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"dataHora\": \"2023-05-26T03:00:00.000Z\",\n    \"funcionarioId\": \"3\",\n    \"itensEntrada\": [\n      {\n        \"quantidade\": \"20\",\n        \"valorCerveja\": \"7.5\",\n        \"valorCasco\": \"2\",\n        \"fornecedorSelecionado\": \"1\",\n        \"cervejaId\": \"1\"\n      }\n      ]\n}",
+                "form": []
+            },
+            "tests": []
         }
     ]
 }
