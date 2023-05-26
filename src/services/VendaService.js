@@ -174,6 +174,9 @@ class VendaService {
     static async applyChangesOnCervejasStock(itensVenda, moddifedCervejas,transaction) {
         await Promise.all(itensVenda.map(async (itemVenda) => {
             const cerveja = await CervejaService.show({ params: { id: itemVenda.cervejaId } });
+            if (itemVenda.quantidade > cerveja.qtdCheio) {
+                throw "Não há cervejas suficientes no estoque";
+            }
             cerveja.qtdCheio -= itemVenda.quantidade;
             moddifedCervejas.push(cerveja);
             await CervejaService.updateTotal(
