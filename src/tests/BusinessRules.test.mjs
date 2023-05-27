@@ -1,5 +1,4 @@
 import axios from 'axios';
-import jest from 'jest';
 
 const uri = 'http://localhost:3000/venda';
 
