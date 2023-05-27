@@ -1,4 +1,3 @@
-import app from '../server.js';
 import axios from 'axios';
 import jest from 'jest';
 
