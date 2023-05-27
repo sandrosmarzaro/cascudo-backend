@@ -384,7 +384,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Cidade Imperial\",\n    \"logo\": null,\n    \"endereco\": \"Rua das Cervejas, 321\",\n    \"horaEntrega\": \"15:32:57\",\n    \"diaEntrega\": \"terça\"\n}",
+							"raw": "{\n    \"nome\": \"Cidade Imperial\",\n    \"logo\": null,\n    \"endereco\": \"Rua das Cervejas, 321\",\n    \"horaEntrega\": \"15:32:57\",\n    \"diaEntrega\": \"terça\",\n    \"marcas\": [\n        {\n            \"nome\": \"Império\",\n            \"origem\": \"Brasil\",\n            \"logo\": \"\"\n        },\n        {\n            \"nome\": \"Cidade Imperial\",\n            \"origem\": \"Brasil\",\n            \"logo\": \"\"\n        },\n        {\n            \"nome\": \"Puro Malte\",\n            \"origem\": \"Brasil\",\n            \"logo\": \"\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -414,7 +414,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Cidade Imperial\",\n    \"logo\": null,\n    \"endereco\": \"Rua das Cervejas, 666\",\n    \"horaEntrega\": \"15:32:57\",\n    \"diaEntrega\": \"terça\"\n}",
+							"raw": "{\n    \"nome\": \"Cidade Imperial\",\n    \"logo\": null,\n    \"endereco\": \"Rua das Cervejas, 666\",\n    \"horaEntrega\": \"15:32:57\",\n    \"diaEntrega\": \"terça\",\n    \"marcas\": [\n        {\n            \"nome\": \"Império\",\n            \"origem\": \"Brasil\",\n            \"logo\": null\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -444,7 +444,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"endereco\": \"Rua das Cervejas, 132\",\n    \"horaEntrega\": \"19:32:57\",\n    \"diaEntrega\": \"quinta\"\n}",
+							"raw": "{\n    \"endereco\": \"Rua das Cervejas, 132\",\n    \"horaEntrega\": \"19:32:57\",\n    \"diaEntrega\": \"quinta\",\n    \"logo\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,7 +519,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/v1/vendas/1",
+							"raw": "localhost:3000/api/v1/vendas/5",
 							"host": [
 								"localhost"
 							],
@@ -528,7 +528,7 @@
 								"api",
 								"v1",
 								"vendas",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -541,7 +541,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 0,\n    \"totalComCasco\": 0,\n    \"createdAt\": \"2023-04-21T19:07:17.627Z\",\n    \"updatedAt\": \"2023-04-21T19:07:17.627Z\",\n    \"clienteId\": 1,\n    \"funcionarioId\": 1\n}",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 6.9,\n    \"totalComCasco\": 6.25,\n    \"clienteId\": 1,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 0,\n            \"valorCasco\": 0,\n            \"cervejaId\": 5\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 1,\n            \"valorCasco\": 0,\n            \"cervejaId\": 5\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -571,7 +571,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 0,\n    \"totalComCasco\": 0,\n    \"createdAt\": \"2023-04-21T19:07:17.627Z\",\n    \"updatedAt\": \"2023-04-21T19:07:17.627Z\",\n    \"clienteId\": 3,\n    \"funcionarioId\": 3\n}",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 10.9,\n    \"totalComCasco\": 15.9,\n    \"clienteId\": 3,\n    \"funcionarioId\": 3,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 10,\n            \"valorCasco\": 5,\n            \"cervejaId\": 2\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 2,\n            \"valorCasco\": 1.5,\n            \"cervejaId\": 3\n        },\n        {\n            \"quantidade\": 1,\n            \"valorCasco\": 2,\n            \"cervejaId\": 1\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -965,6 +965,195 @@
 								"v1",
 								"devolucoes",
 								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Regra 1 - Sem espaço no Estoque pra guardar Casco Vazio",
+			"item": [
+				{
+					"name": "Sem Espaço",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 9,\n    \"totalComCasco\": 7,\n    \"clienteId\": 4,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 7,\n            \"valorCasco\": 2,\n            \"cervejaId\": 1\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 2,\n            \"valorCasco\": 2,\n            \"cervejaId\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Com Espaço",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 9,\n    \"totalComCasco\": 7,\n    \"clienteId\": 4,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 7,\n            \"valorCasco\": 2,\n            \"cervejaId\": 1\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 1,\n            \"valorCasco\": 2,\n            \"cervejaId\": 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Regra 2 - Desconto de 5% por 24 Cascos Devolvidos",
+			"item": [
+				{
+					"name": "Sem Desconto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 9.75,\n    \"totalComCasco\": 8.25,\n    \"clienteId\": 4,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 8.25,\n            \"valorCasco\": 1.75,\n            \"cervejaId\": 3\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 1,\n            \"valorCasco\": 1.25,\n            \"cervejaId\": 3\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Com Desconto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 9.75,\n    \"totalComCasco\": 8.25,\n    \"clienteId\": 1,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 8.25,\n            \"valorCasco\": 1.75,\n            \"cervejaId\": 3\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 1,\n            \"valorCasco\": 1.25,\n            \"cervejaId\": 3\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Regra 1 & 2 - Espaço no Estoque com Desconto",
+			"item": [
+				{
+					"name": "Sem Espaço e Desconto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 15.9,\n    \"totalComCasco\": 10.9,\n    \"clienteId\": 2,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 10.9,\n            \"valorCasco\": 5,\n            \"cervejaId\": 2\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 2,\n            \"valorCasco\": 5,\n            \"cervejaId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Com Espaço e Desconto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dataHora\": \"2020-01-01T03:00:00.000Z\",\n    \"totalSemCasco\": 15.9,\n    \"totalComCasco\": 10.9,\n    \"clienteId\": 2,\n    \"funcionarioId\": 1,\n    \"itensVenda\": [\n        {\n            \"quantidade\": 1,\n            \"valorCerveja\": 10.9,\n            \"valorCasco\": 5,\n            \"cervejaId\": 2\n        }\n    ],\n    \"devolucoes\": [\n        {\n            \"quantidade\": 1,\n            \"valorCasco\": 5,\n            \"cervejaId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/vendas",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"vendas"
 							]
 						}
 					},
