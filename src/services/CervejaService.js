@@ -1,5 +1,8 @@
 import { Cerveja } from '../models/Cerveja.js';
 
+import sequelize from '../config/connection.js';
+import { Sequelize } from 'sequelize';
+
 class CervejaService {
     static async index() {
         return await Cerveja.findAll({ include: { all: true, nested: true } });
@@ -93,6 +96,29 @@ class CervejaService {
         catch (err) {
             throw "Não foi possível deletar a cerveja";
         }
+    }
+
+    static async findAmountOfBeersSoldByDate(req) {
+        const { startDate, endDate } = req.params;
+        return await sequelize.query(
+            `SELECT
+            cervejas.imagem AS Casco,
+            cervejas.nome AS Cerveja,
+            fornecedores.nome AS Fornecedor,
+            SUM(item_venda.quantidade) AS Qtd
+            FROM cervejas
+            INNER JOIN marcas ON cervejas.marca_id = marcas.id
+            INNER JOIN fornecedores ON marcas.id = fornecedores.id
+            INNER JOIN item_venda ON cervejas.id = item_venda.cerveja_id
+            INNER JOIN vendas ON item_venda.venda_id = vendas.id
+            WHERE vendas.data_hora BETWEEN '${startDate}' AND '${endDate}'
+            GROUP BY cervejas.id
+            ORDER BY Qtd DESC;`,
+            {
+                replacements: { startDate, endDate },
+                type: Sequelize.QueryTypes.SELECT
+            }
+        );
     }
 }
 

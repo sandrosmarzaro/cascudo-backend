@@ -36,6 +36,12 @@ class CervejaController {
             .then((cerveja) => res.json(cerveja))
             .catch(next);
     }
+
+    static async findAmountOfBeersSoldByDate(req, res, next) {
+        CervejaService.findAmountOfBeersSoldByDate(req)
+            .then((cerveja) => res.json(cerveja))
+            .catch(next);
+    }
 }
 
 export { CervejaController };

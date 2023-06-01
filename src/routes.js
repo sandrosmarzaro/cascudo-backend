@@ -61,6 +61,7 @@ routes.post(uri, CervejaController.store);
 routes.put(`${uri}/:id`, CervejaController.updateTotal);
 routes.patch(`${uri}/:id`, CervejaController.updateParcial);
 routes.delete(`${uri}/:id`, CervejaController.destroy);
+routes.get(`${uri}/findAmountOfBeersSoldByDate/:startDate/:endDate`, CervejaController.findAmountOfBeersSoldByDate);
 
 uri = "/marcas";
 routes.get(uri, MarcaController.index);
