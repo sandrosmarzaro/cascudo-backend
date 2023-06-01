@@ -260,14 +260,19 @@ class VendaService {
     static async findTotalBrandSalesByDate(req) {
         const { startDate, endDate } = req.params;
         return await sequelize.query(
-            `SELECT marcas.nome AS marca, SUM(vendas.total_com_casco) AS totalVendas
+            `SELECT
+            marcas.logo AS Logo,
+            marcas.nome AS Marca,
+            fornecedores.nome AS Fornecedor,
+            SUM(vendas.total_com_casco) AS Total
             FROM marcas
             INNER JOIN cervejas ON marcas.id = cervejas.marca_id
+            INNER JOIN fornecedores ON marcas.fornecedor_id = fornecedores.id
             INNER JOIN item_venda ON cervejas.id = item_venda.cerveja_id
             INNER JOIN vendas ON item_venda.venda_id = vendas.id
             WHERE vendas.data_hora BETWEEN '${startDate}' AND '${endDate}'
             GROUP BY marcas.id
-            ORDER BY totalVendas DESC;`,
+            ORDER BY Total DESC;`,
             {
                 replacements: { startDate, endDate },
                 type: Sequelize.QueryTypes.SELECT
