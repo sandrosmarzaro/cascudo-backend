@@ -1160,6 +1160,52 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Relatório 1 - Vendas Por Marca",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/vendas/findTotalBrandSalesByDate/2022-01-01T02:02:02/2023-01-01T03:03:03",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"vendas",
+						"findTotalBrandSalesByDate",
+						"2022-01-01T02:02:02",
+						"2023-01-01T03:03:03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Relatório 2 - Qtd de Cerveja Vendidas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/cervejas/findAmountOfBeersSoldByDate/2020-01-01T02:02:02/2023-01-01T03:03:03",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"cervejas",
+						"findAmountOfBeersSoldByDate",
+						"2020-01-01T02:02:02",
+						"2023-01-01T03:03:03"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
