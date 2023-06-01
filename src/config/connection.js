@@ -212,21 +212,21 @@ async function populateDatase() {
     vendas[1] = await Venda.create({
         dataHora: "2021-01-01T01:01:01",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00,
+        totalComCasco: 10.00,
         clienteId: clientes[1].id,
         funcionarioId: funcionarios[1].id
     });
     vendas[2] = await Venda.create({
         dataHora: "2022-01-01T02:02:02",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00,
+        totalComCasco: 20.00,
         clienteId: clientes[2].id,
         funcionarioId: clientes[2].id
     });
     vendas[3] = await Venda.create({
         dataHora: "2023-01-01T03:03:03",
         totalSemCasco: 0.00,
-        totalComCasco: 0.00,
+        totalComCasco: 30.00,
         clienteId: clientes[3].id,
         funcionarioId: clientes[3].id
     });

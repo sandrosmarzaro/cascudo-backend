@@ -36,6 +36,12 @@ class VendaController {
             .then((venda) => res.json(venda))
             .catch(next);
     }
+
+    static async findTotalBrandSalesByDate(req, res, next) {
+        VendaService.findTotalBrandSalesByDate(req)
+            .then((venda) => res.json(venda))
+            .catch(next);
+    }
 }
 
 export { VendaController };

@@ -20,6 +20,7 @@ routes.post(uri, VendaController.store);
 routes.put(`${uri}/:id`, VendaController.updateTotal);
 routes.patch(`${uri}/:id`, VendaController.updateParcial);
 routes.delete(`${uri}/:id`, VendaController.destroy);
+routes.get(`${uri}/findTotalBrandSalesByDate/:startDate/:endDate`, VendaController.findTotalBrandSalesByDate);
 
 uri = "/itemvendas";
 routes.get(uri, ItemVendaController.index);

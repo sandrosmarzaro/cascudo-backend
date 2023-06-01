@@ -3,6 +3,7 @@ import { CervejaService } from "./CervejaService.js";
 import { ClienteService } from "./ClienteService.js";
 
 import sequelize from '../config/connection.js';
+import { Sequelize } from 'sequelize';
 
 class VendaService {
     static async index() {
@@ -255,6 +256,25 @@ class VendaService {
         );
         await venda.save({ transaction: transaction });
     }
+
+    static async findTotalBrandSalesByDate(req) {
+        const { startDate, endDate } = req.params;
+        return await sequelize.query(
+            `SELECT marcas.nome AS marca, SUM(vendas.total_com_casco) AS totalVendas
+            FROM marcas
+            INNER JOIN cervejas ON marcas.id = cervejas.marca_id
+            INNER JOIN item_venda ON cervejas.id = item_venda.cerveja_id
+            INNER JOIN vendas ON item_venda.venda_id = vendas.id
+            WHERE vendas.data_hora BETWEEN '${startDate}' AND '${endDate}'
+            GROUP BY marcas.id
+            ORDER BY totalVendas DESC;`,
+            {
+                replacements: { startDate, endDate },
+                type: Sequelize.QueryTypes.SELECT
+            }
+        );
+    }
+
 }
 
 export { VendaService };
