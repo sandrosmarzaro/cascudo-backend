@@ -462,6 +462,34 @@
                 "form": []
             },
             "tests": []
+        },
+        {
+            "_id": "0399af6e-4ac6-4a1e-98d0-5a043da51eb9",
+            "colId": "948ae69d-f7eb-41ed-b85e-41cb9da5bfe9",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/findQtdSalesEmployee/2020-01-01/2023-01-01",
+            "url": "http://localhost:3000/api/v1/entradas/findQtdSalesEmployee/2020-01-01/2023-01-01",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-02T01:32:22.859Z",
+            "modified": "2023-06-02T01:32:22.859Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8a2d0ff3-fa4d-4036-b401-6093cbccf01b",
+            "colId": "948ae69d-f7eb-41ed-b85e-41cb9da5bfe9",
+            "containerId": "",
+            "name": "http://localhost:3000/api/v1/entradas/findQtdStockLiter/600",
+            "url": "http://localhost:3000/api/v1/entradas/findQtdStockLiter/600",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-02T01:32:56.569Z",
+            "modified": "2023-06-02T01:32:56.569Z",
+            "headers": [],
+            "params": [],
+            "tests": []
         }
     ]
 }
