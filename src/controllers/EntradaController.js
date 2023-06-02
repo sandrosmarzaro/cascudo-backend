@@ -36,6 +36,18 @@ class EntradaController {
             .then((entrada) => res.json(entrada))
             .catch(next);
     }
+
+    static async findQtdSalesEmployee(req, res, next) {
+        EntradaService.findQtdSalesEmployee(req)
+            .then((entrada) => res.json(entrada))
+            .catch(next);
+    }
+
+    static async findQtdStockLiter(req, res, next) {
+        EntradaService.findQtdStockLiter(req)
+            .then((entrada) => res.json(entrada))
+            .catch(next);
+    }
 }
 
 export { EntradaController };

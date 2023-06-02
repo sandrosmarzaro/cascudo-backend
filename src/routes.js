@@ -45,6 +45,8 @@ routes.post(uri, EntradaController.store);
 routes.put(`${uri}/:id`, EntradaController.updateTotal);
 routes.patch(`${uri}/:id`, EntradaController.updateParcial);
 routes.delete(`${uri}/:id`, EntradaController.destroy);
+routes.get(`${uri}/findQtdSalesEmployee/:startDate/:endDate`, EntradaController.findQtdSalesEmployee);
+routes.get(`${uri}/findQtdStockLiter/:literage`, EntradaController.findQtdStockLiter);
 
 uri = "/itementradas";
 routes.get(uri, ItemEntradaController.index);

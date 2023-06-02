@@ -19,11 +19,11 @@ class EntradaService {
     static async store(req) {
         const { dataHora, itensEntrada, funcionarioId } = req.body;
 
-        if(await EntradaService.verificarViolacaoRegra1(itensEntrada)){
+        if (await EntradaService.verificarViolacaoRegra1(itensEntrada)) {
             throw "Regra de Negócio 1 violada!";
-        }else if(await EntradaService.verificarViolacaoRegra2(itensEntrada)){
+        } else if (await EntradaService.verificarViolacaoRegra2(itensEntrada)) {
             throw "Regra de Negócio 2 violada!";
-        }else{
+        } else {
             try {
                 const t = await sequelize.transaction();
                 const entrada = await Entrada.create({ dataHora, funcionarioId }, { transaction: t });
@@ -55,7 +55,7 @@ class EntradaService {
             }
         }
     }
-    
+
     static async updateParcial(req) {
         const { id } = req.params;
         const entrada = await Entrada.findByPk(id, { include: { all: true, nested: true } });
@@ -98,7 +98,7 @@ class EntradaService {
         }
     }
 
-    static async verificarViolacaoRegra1(itensEntrada){
+    static async verificarViolacaoRegra1(itensEntrada) {
         for (const item of itensEntrada) {
             const cerveja = await Cerveja.findByPk(item.cervejaId);
             const marca = await Marca.findByPk(cerveja.marcaId);
@@ -121,6 +121,37 @@ class EntradaService {
     static async findQtdVazia(cervejaId) {
         const obj = await sequelize.query("SELECT cervejas.qtd_vazio FROM cervejas INNER JOIN item_entrada ON cervejas.id = item_entrada.cerveja_id WHERE item_entrada.cerveja_id = :cervejaId", { type: QueryTypes.SELECT, replacements: { cervejaId } });
         return obj;
+    }
+
+    static async findQtdSalesEmployee(req){
+        const { startDate, endDate } = req.params;
+        return await sequelize.query(`
+            SELECT f.foto, f.nome, f.codigo, COUNT(v.id) AS total_vendas
+            FROM funcionarios f
+            LEFT JOIN vendas v ON f.id = v.funcionario_id
+            WHERE DATE(v.data_hora) BETWEEN :startDate AND :endDate
+            GROUP BY f.id, f.foto, f.nome, f.codigo;`,
+            { replacements: { startDate, endDate }, type: sequelize.QueryTypes.SELECT });
+    }
+
+    static async findQtdStockLiter(req) {
+        const { literage } = req.params;
+        return await sequelize.query(`
+            SELECT
+            marcas.logo AS Logo,
+            marcas.nome AS Marca,
+            SUM(cervejas.qtd_cheio + cervejas.qtd_vazio) AS TotalCascos,
+            SUM(cervejas.qtd_vazio) AS QuantidadeVazia,
+            SUM(cervejas.qtd_cheio) AS QuantidadeCheia
+            FROM
+            marcas
+            JOIN
+            cervejas ON marcas.id = cervejas.marca_id
+            WHERE
+            cervejas.litragem = :literage
+            GROUP BY
+            marcas.id, marcas.logo, marcas.nome;`,
+            { replacements: { literage }, type: sequelize.QueryTypes.SELECT });
     }
 }
 
