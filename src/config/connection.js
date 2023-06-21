@@ -11,6 +11,7 @@ import { Devolucao } from "../models/Devolucao.js";
 import { ItemEntrada } from "../models/ItemEntrada.js";
 import { Venda } from "../models/Venda.js";
 import { Entrada } from "../models/Entrada.js";
+import * as fs from 'fs';
 
 const sequelize = new Sequelize(dbConfig);
 
@@ -39,13 +40,15 @@ ItemEntrada.associate(sequelize.models);
 async function populateDatase() {
     await sequelize.sync({ force: true });
 
+    const imagemBase64 = Buffer.from(fs.readFileSync('./assets/images/homem.png')).toString('base64');
+
     const funcionarios = [];
     funcionarios[0] = await Funcionario.create({
         nome: 'José da Silva',
         codigo: '001',
         dataNascimento: '1990-01-01',
         senha: 'senha123',
-        foto: null,
+        foto: imagemBase64,
         gerente: true
     });
     funcionarios[1] = await Funcionario.create({
@@ -53,7 +56,7 @@ async function populateDatase() {
         codigo: '002',
         dataNascimento: '1995-05-05',
         senha: 'senha456',
-        foto: null,
+        foto: imagemBase64,
         gerente: false
     });
     funcionarios[2] = await Funcionario.create({
@@ -61,7 +64,7 @@ async function populateDatase() {
         codigo: '003',
         dataNascimento: '2000-12-31',
         senha: 'senha789',
-        foto: null,
+        foto: imagemBase64,
         gerente: false
     });
     funcionarios[3] = await Funcionario.create({
@@ -69,7 +72,7 @@ async function populateDatase() {
         codigo: '004',
         dataNascimento: '1985-10-15',
         senha: 'senhaabc',
-        foto: null,
+        foto: imagemBase64,
         gerente: false
     });
 
@@ -80,7 +83,7 @@ async function populateDatase() {
         dataNascimento: '1990-01-01',
         email: 'joao.silva@example.com',
         qtdCascosDevolvidos: 23,
-        foto: null
+        foto: imagemBase64
     });
     clientes[1] = await Cliente.create({
         nome: 'Maria Santos',
@@ -88,7 +91,7 @@ async function populateDatase() {
         dataNascimento: '1995-05-05',
         email: 'maria.santos@example.com',
         qtdCascosDevolvidos: 24,
-        foto: null
+        foto: imagemBase64
     });
     clientes[2] = await Cliente.create({
         nome: 'Pedro Oliveira',
@@ -96,7 +99,7 @@ async function populateDatase() {
         dataNascimento: '2000-12-31',
         email: 'pedro.oliveira@example.com',
         qtdCascosDevolvidos: 25,
-        foto: null
+        foto: imagemBase64
     });
     clientes[3] = await Cliente.create({
         nome: 'Ana Paula Souza',
@@ -104,7 +107,7 @@ async function populateDatase() {
         dataNascimento: '1985-10-15',
         email: 'ana.paula.souza@example.com',
         qtdCascosDevolvidos: 0,
-        foto: null
+        foto: imagemBase64
     });
 
     const fornedecores = [];
@@ -112,47 +115,55 @@ async function populateDatase() {
         nome: "Ambev",
         endereco: "Rua das Cervejas, 123",
         diaEntrega: "segunda",
-        horaEntrega: "08:00:00"
+        horaEntrega: "08:00:00",
+        logo: imagemBase64
     });
     fornedecores[1] = await Fornecedor.create({
         nome: "Lippaus",
         endereco: "Rua das Cervejas, 456",
         diaEntrega: "quarta",
-        horaEntrega: "12:30:45"
+        horaEntrega: "12:30:45",
+        logo: imagemBase64
     });
     fornedecores[2] = await Fornecedor.create({
         nome: "Coca-Cola",
         endereco: "Rua das Cervejas, 789",
         diaEntrega: "sexta",
-        horaEntrega: "18:40:10"
+        horaEntrega: "18:40:10",
+        logo: imagemBase64
     });
     fornedecores[3] = await Fornecedor.create({
         nome: "Grupo Petrópolis",
         endereco: "Rua das Cervejas, 101",
         diaEntrega: "domingo",
-        horaEntrega: "07:59:59"
+        horaEntrega: "07:59:59",
+        logo: imagemBase64
     });
 
     const marcas = [];
     marcas[0] = await Marca.create({
         nome: "Skol",
         origem: "Dinamarca",
-        fornecedorId: fornedecores[0].id
+        fornecedorId: fornedecores[0].id,
+        logo: imagemBase64
     });
     marcas[1] = await Marca.create({
         nome: "Heineken",
         origem: "Holanda",
-        fornecedorId: fornedecores[1].id
+        fornecedorId: fornedecores[1].id,
+        logo: imagemBase64
     });
     marcas[2] = await Marca.create({
         nome: "Eisenbahn",
         origem: "Alemanha",
-        fornecedorId: fornedecores[2].id
+        fornecedorId: fornedecores[2].id,
+        logo: imagemBase64
     });
     marcas[3] = await Marca.create({
         nome: "Itaipava",
         origem: "Brasil",
-        fornecedorId: fornedecores[3].id
+        fornecedorId: fornedecores[3].id,
+        logo: imagemBase64
     });
 
     const cervejas = [];
@@ -165,7 +176,8 @@ async function populateDatase() {
         precoCerveja: 7.00,
         precoCasco: 2.00,
         litragem: "1000",
-        marcaId: marcas[0].id
+        marcaId: marcas[0].id,
+        imagem: imagemBase64
     });
     cervejas[1] = await Cerveja.create({
         nome: "Heineken Garrafa",
@@ -176,7 +188,8 @@ async function populateDatase() {
         precoCerveja: 10.90,
         precoCasco: 5.00,
         litragem: "600",
-        marcaId: marcas[1].id
+        marcaId: marcas[1].id,
+        imagem: imagemBase64
     });
     cervejas[2] = await Cerveja.create({
         nome: "Eisenbahn Garrafa",
@@ -187,7 +200,8 @@ async function populateDatase() {
         precoCerveja: 8.25,
         precoCasco: 1.50,
         litragem: "600",
-        marcaId: marcas[2].id
+        marcaId: marcas[2].id,
+        imagem: imagemBase64
     });
     cervejas[3] = await Cerveja.create({
         nome: "Itaipava Litrinho",
@@ -198,7 +212,8 @@ async function populateDatase() {
         precoCerveja: 2.50,
         precoCasco: 0.75,
         litragem: "300",
-        marcaId: marcas[3].id
+        marcaId: marcas[3].id,
+        imagem: imagemBase64
     });
 
     const vendas = [];

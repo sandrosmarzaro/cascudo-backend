@@ -94,6 +94,9 @@ class Cliente extends Model {
             },
             foto: {
                 type: DataTypes.BLOB('long'),
+                get() {
+                    return Buffer.from(this.getDataValue('foto')).toString(); // Retornando no formato String
+                },
                 allowNull: true
             }
         }, {

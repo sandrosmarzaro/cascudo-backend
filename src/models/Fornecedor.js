@@ -21,6 +21,9 @@ class Fornecedor extends Model {
             },
             logo: {
                 type: DataTypes.BLOB('long'),
+                get() {
+                    return Buffer.from(this.getDataValue('logo')).toString(); // Retornando no formato String
+                },
                 allowNull: true
             },
             endereco: {

@@ -175,6 +175,9 @@ class Cerveja extends Model {
             },
             imagem: {
                 type: DataTypes.BLOB('long'),
+                get() {
+                    return Buffer.from(this.getDataValue('imagem')).toString(); // Retornando no formato String
+                },
                 allowNull: true,
             }
         }, {
