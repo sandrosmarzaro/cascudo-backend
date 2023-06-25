@@ -38,7 +38,7 @@ Entrada.associate(sequelize.models);
 ItemEntrada.associate(sequelize.models);
 
 async function populateDatase() {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
 
     const imagemBase64 = Buffer.from(fs.readFileSync('./assets/images/homem.png')).toString('base64');
 
@@ -355,5 +355,5 @@ async function populateDatase() {
     });
 }
 
-populateDatase();
+// populateDatase();
 export default sequelize;
